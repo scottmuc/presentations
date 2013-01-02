@@ -1,3 +1,17 @@
+# Vagrant Postgresql
+
+Have you had to install a database server onto your laptop? Did you find it painful? What happened when you moved to
+another project and didn't discover until late that you had been running the wrong version?
+
+With the power of virtualization and automated configuration management, there's no need to ever run these kinds of
+third party external dependencies on your machine. You never deploy to a Mac, so why do you run your database server on
+one?
+
+This workshop will start with showing you how you can stand up your own "production like" Postgresql database server
+locally in a VM in just a few minutes. After some brief explanation, you'll be running the scripts on your machine too!
+
+Time permitting, we can work together to make a different type of database instance.
+
 ## Objectives
 
 * Describe what Vagrant does
