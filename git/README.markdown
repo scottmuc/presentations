@@ -9,6 +9,14 @@ The class should know some basics on what a commit is. This exercises abstracts
 out what entails a commit and how they are created. They should do the "All the
 worlds a stage" exercise before this one.
 
+## Materials
+
+* whiteboard to write commands (eg. reflog)
+* large index cards
+** 6-10 white commit cards
+** 2-3  red branch cards
+** 1    blue HEAD card
+
 ## Objectives
 
 * recall of the basic structures in a git graph
@@ -21,29 +29,32 @@ worlds a stage" exercise before this one.
 
 ## Exercise
 
+Introduce the presentation stating that knowing how to make a commit is not
+the objective of the session.
+
 Commit messages:
   - [great, is, git, think, I, do not]
 
 1. Represent an empty initialized repository by having 1 person represent the
-master branch. They should be spinning because no commits exist. Add 1 more
-person that represents HEAD and have them point to the master branch.
+HEAD. They should be spinning because it is pointing to branch master but it
+technically doesn't exist yet.
 
 Explain how this state represents a brand new repository. HEAD is pointing to a
-branch, and that branch is pointing to nothing. Git does a lot of things
-impliciitly like creating the first branch 'master'.
+branch master, and that branch doesn't exist. Git does a lot of things
+impliciitly like telling HEAD that it's pointing to master
 
-git init
+    git init
 
-2. Make the first commit. A person will represent the initial commit which will
-make the master branch stop spinning and point to this new commit. Invoke git
-log by having the commit speak out loud their message.
+2. Make the first commit. A person will represent the initial commit which
+which will then trigger the creation of the master branch, and HEAD will
+stop spinning and point to the branch. Invoke git log by having the commit speak
+out loud their message.
 
 We're still not in a normal state because we have another exceptional condition
 where the first commit does not have a parent. Explain the concept of the root
-node. Also explain how from this point forward, you can't have a branch that
-doesn't point to a commit
+node.
 
-git commit -m 'great'
+    git commit -m 'great'
 
 3. Adding a 2nd commit. The new commit will have to point to the commit that
 master is pointing to. Once that's complete, master needs to update itself and
@@ -118,4 +129,4 @@ other_branch)
 10. Maybe emulate git garbage collection and destroy the unreferenced commit
 that got lost due to the rebase.
 
-
+11. Ask about the journal of commands
