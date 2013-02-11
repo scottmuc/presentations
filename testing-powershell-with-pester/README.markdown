@@ -1,5 +1,9 @@
 # Testing PowerShell with Pester
 
+Microsoft has put a lot of effort into PowerShell. Many Windows administrative activities have been made
+much easier because of PowerShell. With more and more things being automated, we need to test the logic
+that happens in the modules that we write. Pester is a testing framework for PowerShell that takes a lot
+of ideas from rspec.
 
 ## Objectives
 
