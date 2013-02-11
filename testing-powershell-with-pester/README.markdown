@@ -34,16 +34,31 @@ to automate everything (and Chef).
 The community is a bit fragmented. There are some that write code to the letter of the law
 according to Microsoft. Poor methods of sharing code is also a problem.
 
-* Get-Content
-* Get-ChildItem
-* Test-Path
-* Resolve-Path
-* ForEach-Object
+Point out a lot of what looks like Unix commands are aliases to PowerShell
+commandlets.
+
+    alias
+    ls alias:ls
+    Get-ChildItem
+
+    ls alias:cat
+    Get-Content
+
+    ls alias:pwd
+    Get-Location
+
+    Test-Path C:\Windows
+    Test-Path HKCU:\Software\Google
+
+There's a level of consistency in the PowerShell command names that is
+comforting and sort of disconcerting. Skip details on how providers work.
 
 ### Pipelines
 
 Pipelines might be familiar to those that have used Unix like operating systems. PowerShell takes
 it a bit further with the ability to pipeline objects, not streams.
+
+    Get-ChildItem | ForEach-Object { Write-Host "$($_.FullName)" }
 
 ### Windows Administration
 
