@@ -98,3 +98,34 @@ It all started with PowerYaml.
 
 * Test Structure
 
+### Code
+
+```powershell
+$pwd = Split-Path -Parent $MyInvocation.MyCommand.Path
+$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
+. "$pwd\$sut"
+. "$pwd\..\..\Pester.1.0.1\tools\Pester.ps1"
+
+Describe "Ensure-AspNetDebugIsFalse" {
+
+    Setup -File "inetpub\wwwroot\testsite\web.config" `
+                "<configuration><system.web><compilation debug='true' /></system.web></configuration>"
+
+    It "switches debug attribute to false for a web.config in a given website path" {
+        Ensure-AspNetDebugIsFalse "$TestDrive\inetpub\wwwroot\testsite"
+
+        [xml] $xml = Get-Content "$TestDrive\inetpub\wwwroot\testsite\web.config"
+        $xml.configuration."system.web".compilation.debug.should.be("false")
+    }
+}
+
+function Ensure-AspNetDebugIsFalse($websitePath) {
+    $webConfigPath = "$websitePath\web.config"
+
+    [xml] $webConfig = Get-Content $webConfigPath
+    $webConfig.configuration."system.web".compilation.debug = "false"
+    $webConfig.Save($webConfigPath)
+}
+```
+
+
