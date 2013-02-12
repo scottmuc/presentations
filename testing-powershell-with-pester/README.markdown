@@ -60,6 +60,17 @@ it a bit further with the ability to pipeline objects, not streams.
 
     Get-ChildItem | ForEach-Object { Write-Host "$($_.FullName)" }
 
+
+### Type Accelerators
+
+    [xml] $xml = Get-Content C:\some-file.xml
+
+
+### Access to .Net Classes
+
+    [String]::Format("Hello, {0}", "world")
+
+
 ### Windows Administration
 
 PowerShell can built in support for nearly all the Microsoft technologies:
@@ -72,6 +83,10 @@ PowerShell can built in support for nearly all the Microsoft technologies:
 
 If you're a Windows Admin you're not using PowerShell, then you're making your
 life a lot harder.
+
+### Modules
+
+    $env:PSModulePath
 
 ### Pester and the Story of PowerYaml
 
