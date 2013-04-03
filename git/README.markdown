@@ -44,64 +44,95 @@ branch master, and that branch doesn't exist. Git does a lot of things
 impliciitly like telling HEAD that it's pointing to master
 
     git init
-
+    cat .git/HEAD
+    ref: refs/heads/master
+    # note that .git/refs/heads/master does not exist
+    
 2. Make the first commit. A person will represent the initial commit which
 which will then trigger the creation of the master branch, and HEAD will
-stop spinning and point to the branch. Invoke git log by having the commit speak
-out loud their message.
+stop spinning and point to the branch.
 
 We're still not in a normal state because we have another exceptional condition
 where the first commit does not have a parent. Explain the concept of the root
 node.
 
     git commit -m 'great'
+    # the contents of .git/HEAD are the same
+    # .git/refs/heads/master now exists and the contents of the file
+    # is the SHA of the first commit
 
 3. Adding a 2nd commit. The new commit will have to point to the commit that
 master is pointing to. Once that's complete, master needs to update itself and
-point to the new commit. Add a couple more commits (5 total) and call git log
-to hear the commit messages in reverse order.
+point to the new commit. 
 
-They should say out loud "I think git is great"
-Ask participants what they think the branch is doing, what's its job?
-Ask participants what HEAD has been doing this whole time.
+    git commit -m 'is'
+    # .git/refs/heads/master now contains the SHA of the new commit
+    # The latest commit will have a parent SHA that is the SHA
+    # of the first commit
 
-git commit -m 'is'
-git commit -m 'git'
-git commit -m 'think'
-git commit -m 'I'
+Ask how does the latest commit know their parent?
 
-4. Perform a `git checkout 'git'`. This should make HEAD point to the commit
-with the message 'git'.
+Add a couple more commits (5 total) 
+
+    git commit -m 'git'
+    git commit -m 'think'
+    git commit -m 'I'
+
+Call git log to hear the commit messages in reverse order.
+
+    git log
+
+They should say out loud "I think git is great".
+
+Ask what they think the branch is doing, what's its job?
+Ask what HEAD has been doing this whole time.
+    
+4. Checkout the SHA for the commit with the message 'git'.
+
+    git checkout B3CC
+    
+What happened to HEAD, and what happened to the MASTER branch?
 
 Explain why this is called a detached HEAD state.
-Do a `git log` and they should say "git is great"
-Point out the fact that the branch didn't move.
 
-git checkout HEAD^^
+    cat .git/HEAD
+    # This will print the SHA that HEAD is pointing to. If HEAD
+    # is pointing to a SHA and not a ref, then you're workspace
+    # is in a detached HEAD state.
 
-5. Perform a `git checkout master`. This should make HEAD point back to the
-master branch. When a `git log` is executed they should say "I think git is
-great".
+Do a `git log` and they should say "git is great". Point out that this is
+because git log starts at HEAD not at MASTER
+
+5. Checkout the MASTER brnach. This should make HEAD point back to the
+master branch.
+
+    git checkout master
+    cat .git/HEAD
+    ref: refs/heads/master
 
 Explain how checking out a branch re-attaches HEAD.
 
-git checkout master
+6. Create a branch called BRANCH-1. Now another person is a branch and is
+pointing to the same commit that master is pointing to.
 
-6. Perform a `git checkout -b other_branch`. Now another person is a branch and is
-pointing to the same commit that master is pointing new.
+    git branch branch-1
+    # cat .git/refs/heads/master and .git/refs/heads/branch-1
+    # are the same commit SHA!
+    
+Then checkout this new branch
 
-Go over the difference between that command and `git branch other_branch`.
+    git checkout branch-1
+    cat .git/HEAD
+    ref: refs/heads/branch-1
+    
+7. Reset branch-1 to EF12. This should make branch-1 point to the commit with
+the message 'think'.
 
-git checkout -b other_branch
-
-7. Perform a `git reset HEAD^` or `git reset think`. This should make
-other_branch point to the commit 'think'.
+    git reset EF12
 
 The participants should see the subtle difference between a checkout and a
 reset. The commands are similar but they operate on different objects. They
 should also notice how the master branch is left unaffected.
-
-git reset HEAD^
 
 8. Make a new commit with the message 'do not'. Now there should be a divergence
 in the graph. A `git log` should result in "do not think git is great". Notice
