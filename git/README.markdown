@@ -35,7 +35,9 @@ the objective of the session.
 Commit messages:
   - [great, is, git, think, I, do not]
 
-1. Represent an empty initialized repository by having 1 person represent the
+### Empty Repository
+
+Represent an empty initialized repository by having 1 person represent the
 HEAD. They should be spinning because it is pointing to branch master but it
 technically doesn't exist yet.
 
@@ -47,8 +49,10 @@ impliciitly like telling HEAD that it's pointing to master
     cat .git/HEAD
     ref: refs/heads/master
     # note that .git/refs/heads/master does not exist
-    
-2. Make the first commit. A person will represent the initial commit which
+   
+### First Commit
+
+Make the first commit. A person will represent the initial commit which
 which will then trigger the creation of the master branch, and HEAD will
 stop spinning and point to the branch.
 
@@ -61,7 +65,9 @@ node.
     # .git/refs/heads/master now exists and the contents of the file
     # is the SHA of the first commit
 
-3. Adding a 2nd commit. The new commit will have to point to the commit that
+### Adding More Commits
+
+Adding a 2nd commit. The new commit will have to point to the commit that
 master is pointing to. Once that's complete, master needs to update itself and
 point to the new commit. 
 
@@ -87,7 +93,9 @@ They should say out loud "I think git is great".
 Ask what they think the branch is doing, what's its job?
 Ask what HEAD has been doing this whole time.
     
-4. Checkout the SHA for the commit with the message 'git'.
+### Detached HEAD State
+
+Checkout the SHA for the commit with the message 'git'.
 
     git checkout B3CC
     
@@ -103,7 +111,9 @@ Explain why this is called a detached HEAD state.
 Do a `git log` and they should say "git is great". Point out that this is
 because git log starts at HEAD not at MASTER
 
-5. Checkout the MASTER brnach. This should make HEAD point back to the
+### Checkout To Safety
+
+Checkout the MASTER branch. This should make HEAD point back to the
 master branch.
 
     git checkout master
@@ -112,7 +122,9 @@ master branch.
 
 Explain how checking out a branch re-attaches HEAD.
 
-6. Create a branch called BRANCH-1. Now another person is a branch and is
+### Creating A Branch
+
+Create a branch called BRANCH-1. Now another person is a branch and is
 pointing to the same commit that master is pointing to.
 
     git branch branch-1
@@ -125,7 +137,9 @@ Then checkout this new branch
     cat .git/HEAD
     ref: refs/heads/branch-1
     
-7. Reset branch-1 to EF12. This should make branch-1 point to the commit with
+### Let's Reset
+
+Reset branch-1 to EF12. This should make branch-1 point to the commit with
 the message 'think'.
 
     git reset EF12
@@ -134,16 +148,20 @@ The participants should see the subtle difference between a checkout and a
 reset. The commands are similar but they operate on different objects. They
 should also notice how the master branch is left unaffected.
 
-8. Make a new commit with the message 'do not'. Now there should be a divergence
+### I Feel A Divergence In The Graph
+
+Make a new commit with the message 'do not'. Now there should be a divergence
 in the graph. A `git log` should result in "do not think git is great". Notice
 how the 'I' is left out because it cannot be traversed to by HEAD.
 
 Now their minds should be blown a little bit. This gets into the power of git
 and knowing the graph.
 
-git commit -m 'do not'
+    git commit -m 'do not'
 
-9. Lastly, perform `git rebase other_branch master`. This should replay the 'I'
+### All Your Rebase Are Belong To Us
+
+Lastly, perform `git rebase other_branch master`. This should replay the 'I'
 commit on top of the 'do not' commit. The tricky part about this one is that the
 original 'I' commit does not change. Someone else joins the graph and points to
 'do not' with their own message of 'I'. Also, master moves to the replayed
@@ -157,7 +175,13 @@ things that can change value are branches and HEAD.
 git rebase other_branch master (I like to read this out as rebase master onto
 other_branch)
 
-10. Maybe emulate git garbage collection and destroy the unreferenced commit
+### Garbage Man Cometh
+
+Maybe emulate git garbage collection and destroy the unreferenced commit
 that got lost due to the rebase.
 
-11. Ask about the journal of commands
+### Burning The Reflog
+
+Ask about the journal of commands
+
+
