@@ -13,19 +13,19 @@ worlds a stage" exercise before this one.
 
 * whiteboard to write commands (eg. reflog)
 * large index cards
-** 6-10 white commit cards
-** 2-3  red branch cards
-** 1    blue HEAD card
+  * 6-10 white commit cards
+  * 2-3  red branch cards
+  * 1    blue HEAD card
 
 ## Objectives
 
 * recall of the basic structures in a git graph
 * ability to predict the changes in a graph after some basic commands:
-** git reset
-** git checkout
-** git commit
-** git branch
-** git rebase
+  * git reset
+  * git checkout
+  * git commit
+  * git branch
+ * git rebase
 
 ## Exercise
 
@@ -124,7 +124,7 @@ Explain how checking out a branch re-attaches HEAD.
 
 ### Creating A Branch
 
-Create a branch called BRANCH-1. Now another person is a branch and is
+Create a branch called branch-1. Now another person is a branch and is
 pointing to the same commit that master is pointing to.
 
     git branch branch-1
@@ -150,35 +150,40 @@ should also notice how the master branch is left unaffected.
 
 ### I Feel A Divergence In The Graph
 
-Make a new commit with the message 'do not'. Now there should be a divergence
-in the graph. A `git log` should result in "do not think git is great". Notice
-how the 'I' is left out because it cannot be traversed to by HEAD.
+Make a new commit with the message 'do not'. 
+
+    git commit -m 'do not'
+
+Now there should be a divergence in the graph. A `git log` should result in
+"do not think git is great". 
+
+Ask why the message 'I' was not spoken 
 
 Now their minds should be blown a little bit. This gets into the power of git
 and knowing the graph.
 
-    git commit -m 'do not'
-
 ### All Your Rebase Are Belong To Us
 
-Lastly, perform `git rebase other_branch master`. This should replay the 'I'
+Lastly, perform `git rebase branch-1 master`. This should replay the 'I'
 commit on top of the 'do not' commit. The tricky part about this one is that the
 original 'I' commit does not change. Someone else joins the graph and points to
 'do not' with their own message of 'I'. Also, master moves to the replayed
 commit and HEAD now points to master. `git log` should say "I do not think git
 is great".
 
-This one is a bit confusing as to what's going on. It's unclear to me why the
-HEAD switches branches. Lesson should be that the graph is immutable. The only
-things that can change value are branches and HEAD.
+    git rebase branch-1 master
 
-git rebase other_branch master (I like to read this out as rebase master onto
-other_branch)
+Note that HEAD will always point to the branch that is being rebased.
+
+Lesson should be that the graph is immutable. The only things that can change
+value are branches and HEAD.
 
 ### Garbage Man Cometh
 
 Maybe emulate git garbage collection and destroy the unreferenced commit
 that got lost due to the rebase.
+
+    git -c gc.reflogExpireUnreachable=0 -c gc.pruneExpire=now gc
 
 ### Burning The Reflog
 
