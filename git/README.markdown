@@ -5,6 +5,9 @@ a git graph. People will have to play: commits, branches, and HEAD.
 
 ## Prerequisites
 
+Knowing the basic mechanics of working with git. May not know the 'why' around
+the mechanics, but you know enough to get in trouble.
+
 The class should know some basics on what a commit is. This exercises abstracts
 out what entails a commit and how they are created. They should do the "All the
 worlds a stage" exercise before this one.
@@ -25,7 +28,7 @@ worlds a stage" exercise before this one.
   * git checkout
   * git commit
   * git branch
- * git rebase
+  * git rebase
 
 ## Exercise
 
