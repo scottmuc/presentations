@@ -19,6 +19,7 @@ worlds a stage" exercise before this one.
   * 6-10 white commit cards
   * 2-3  red branch cards
   * 1    blue HEAD card
+* rope so it's easier to visualize the connections in the graph
 
 ## Objectives
 
