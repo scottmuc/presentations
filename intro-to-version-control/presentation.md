@@ -21,45 +21,57 @@
     height: 600px;
   }
 
+  .cover-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 600px;
+    widht: 1000px;
+  }
+
+
 </style>
 # Introduction to Version Control
 ## Scott Muc (@scottmuc)
 
 ---
-## A long long time ago
-
-<img class="big-image" src="sfu.jpg" />
+## A long time ago
+<div style="background-image: url('sfu.jpg');" class="cover-image"></div>
 
 ---
 ## This is how I did it
-
-<img class="big-image" src="self-versioned.png" />
+<div style="background-image: url('self-versioned.png');" class="cover-image"></div>
 
 ---
 ## Distributed version control
-
-<img class="big-image" src="email-backup.png" />
+<div style="background-image: url('email-backup.png');" class="cover-image"></div>
 
 ---
-
-<img class="big-image" src="using-version-control.png" />
+## Using version control
+<div style="background-image: url('using-version-control.png');" class="cover-image"></div>
 
 ---
 ## It's not just for code
-
-<img class="big-image" src="learned-version-control.jpg" />
+<div style="background-image: url('learned-version-control.jpg');" class="cover-image"></div>
 
 --- 
-# Words to know
+# Getting Started
+---
+# Words to Know
 
 * repository (repo)
 * working copy
-* trunk
+* trunk/branches and merging
 * commit
 * server (remote)
 * client
+* revision
 
 ---
+## Conflicts
+
+<div style="background-image: url('conflict.jpeg');" class="cover-image"></div>
+---
+
 ## You're probably already using it
 
 <div class="block">
@@ -84,5 +96,6 @@
 ---
 ## More Material
 
+* https://github.com/scottmuc/presentations/tree/master/intro-to-version-control
 * http://betterexplained.com/articles/a-visual-guide-to-version-control/
 * http://www.smashingmagazine.com/2008/09/18/the-top-7-open-source-version-control-systems/
