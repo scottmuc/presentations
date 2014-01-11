@@ -95,6 +95,12 @@
 </div>
 
 ---
+## What to do now
+
+* start versioning your important documents
+* learn the command line
+* if you lost your computer, how quickly can you get back?
+
 ## More Material
 
 * https://github.com/scottmuc/presentations/tree/master/intro-to-version-control
