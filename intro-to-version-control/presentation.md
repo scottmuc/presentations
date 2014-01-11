@@ -65,6 +65,7 @@
 * server (remote)
 * client
 * revision
+* **you'll need to relearn all of these**
 
 ---
 ## Conflicts
