@@ -99,6 +99,7 @@
 
 * start versioning your important documents
 * learn the command line
+* think about what is easy/hard to version
 * if you lost your computer, how quickly can you get back?
 
 ## More Material
