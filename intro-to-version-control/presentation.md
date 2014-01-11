@@ -1,4 +1,5 @@
 <style>
+  div.step { left: 60px; }
   img{
     max-height: 400px;
     margin: 20px;
