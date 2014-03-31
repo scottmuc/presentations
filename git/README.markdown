@@ -53,7 +53,7 @@ impliciitly like telling HEAD that it's pointing to master
     cat .git/HEAD
     ref: refs/heads/master
     # note that .git/refs/heads/master does not exist
-   
+
 ### First Commit
 
 Make the first commit. A person will represent the initial commit which
@@ -96,13 +96,13 @@ They should say out loud "I think git is great".
 
 Ask what they think the branch is doing, what's its job?
 Ask what HEAD has been doing this whole time.
-    
+
 ### Detached HEAD State
 
 Checkout the SHA for the commit with the message 'git'.
 
     git checkout B3CC
-    
+
 What happened to HEAD, and what happened to the MASTER branch?
 
 Explain why this is called a detached HEAD state.
@@ -134,18 +134,20 @@ pointing to the same commit that master is pointing to.
     git branch branch-1
     # cat .git/refs/heads/master and .git/refs/heads/branch-1
     # are the same commit SHA!
-    
+
 Then checkout this new branch
 
     git checkout branch-1
     cat .git/HEAD
     ref: refs/heads/branch-1
-    
+
 ### Let's Reset
 
-Reset branch-1 to EF12. This should make branch-1 point to the commit with
+
+Get back onto master and reset it to EF12. This should make master point to the commit with
 the message 'think'.
 
+    git checkout master
     git reset EF12
 
 The participants should see the subtle difference between a checkout and a
@@ -154,33 +156,33 @@ should also notice how the master branch is left unaffected.
 
 ### I Feel A Divergence In The Graph
 
-Make a new commit with the message 'do not'. 
+Make a new commit with the message 'do not'.
 
     git commit -m 'do not'
 
 Now there should be a divergence in the graph. A `git log` should result in
-"do not think git is great". 
+"do not think git is great".
 
-Ask why the message 'I' was not spoken 
+Ask why the message 'I' was not spoken
 
 Now their minds should be blown a little bit. This gets into the power of git
 and knowing the graph.
 
 ### All Your Rebase Are Belong To Us
 
-Lastly, perform `git rebase branch-1 master`. This should replay the 'I'
+Lastly, perform `git rebase master branch-1`. This should replay the 'I'
 commit on top of the 'do not' commit. The tricky part about this one is that the
 original 'I' commit does not change. Someone else joins the graph and points to
-'do not' with their own message of 'I'. Also, master moves to the replayed
-commit and HEAD now points to master. `git log` should say "I do not think git
+'do not' with their own message of 'I'. Also, branch-1 moves to the replayed
+commit and HEAD now points to branch-1. `git log` should say "I do not think git
 is great".
 
-    git rebase branch-1 master
+    git rebase master branch-1
 
 Note that HEAD will always point to the branch that is being rebased.
 
 Lesson should be that the graph is immutable. The only things that can change
-value are branches and HEAD.
+values are branches and HEAD.
 
 ### Garbage Man Cometh
 
