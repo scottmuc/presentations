@@ -3,6 +3,12 @@
 The human graph exercises has people representing the different components in
 a git graph. People will have to play: commits, branches, and HEAD.
 
+> Git is built on a graph. Almost every Git command manipulates this graph. To
+> understand Git deeply, focus on the properties of this graph, not workflows
+> or commands.
+
+The above quote is by [Mary Rose Cook](http://maryrosecook.com/blog/post/git-from-the-inside-out)
+
 ## Prerequisites
 
 Knowing the basic mechanics of working with git. May not know the 'why' around
