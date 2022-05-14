@@ -1,0 +1,11 @@
+name: workshop
+root: ~/
+
+windows:
+  - workshop:
+      layout: tiled
+      panes:
+        - /usr/games/cowsay "Welcome to the Git Workshop!"
+        - watch git log --oneline --graph --decorate --all
+        - watch cat .git/HEAD
+        - watch cat .git/ref/heads/*

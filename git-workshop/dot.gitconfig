@@ -1,0 +1,6 @@
+[user]
+    name = Workshop
+    email = workshop@example.com
+
+[init]
+    defaultBranch = main
