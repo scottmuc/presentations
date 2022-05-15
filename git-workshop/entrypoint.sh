@@ -3,8 +3,10 @@
 
 set -e
 
+USER=handsongit
+
 function createUser() {
-    useradd --system --gid=$GID --uid=$UID $USER
+    useradd --system --create-home --gid=$GID --uid=$UID $USER
 }
 
 function createGroup() {
@@ -45,10 +47,5 @@ else
         renameUser $existingUser
     fi
 
-    # execute as non-root user
-    mv /tmp/.gitconfig $HOME/
-    mv /tmp/.tmux.conf $HOME/
-    mv /tmp/.config    $HOME/
-    mv /tmp/.bashrc    $HOME/
     exec sudo -E -u "$USER" "$@"
 fi

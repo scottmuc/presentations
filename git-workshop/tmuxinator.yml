@@ -1,10 +1,12 @@
-name: workshop
+name: handsongit
 
 windows:
-  - workshop:
+  - workspace:
       layout: tiled
       panes:
         - /usr/games/cowsay "Welcome to the Git Workshop!"
+        - watch git log --oneline --graph --decorate
         - watch git log --oneline --graph --decorate --all
         - watch cat .git/HEAD
         - watch cat .git/ref/heads/*
+        - cat ~/instructions.txt

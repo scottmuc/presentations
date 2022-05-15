@@ -3,10 +3,10 @@
 set -e
 
 docker run -it --rm \
-  -v $PWD:$PWD \
-  -w $PWD \
+  -v $PWD:/workspace \
+  -w /workspace \
   -e UID="$(id -u)" \
   -e GID="$(id -g)" \
-  -e USER="$(whoami)" \
-  -e HOME="/home/$(whoami)" \
-  scottmuc/handsongit tmuxinator start workshop
+  -e USER="handsongit" \
+  -e HOME="/home/handsongit" \
+  scottmuc/handsongit
