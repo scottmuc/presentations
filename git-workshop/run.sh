@@ -9,4 +9,4 @@ docker run -it --rm \
   -e GID="$(id -g)" \
   -e USER="$(whoami)" \
   -e HOME="/home/$(whoami)" \
-  gitworkshop tmuxinator start workshop
+  scottmuc/handsongit tmuxinator start workshop

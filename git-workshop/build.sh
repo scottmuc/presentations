@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-docker build -t gitworkshop .
+set -e
+
+docker build -t scottmuc/handsongit:latest .
