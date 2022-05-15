@@ -3,7 +3,10 @@
 set -e
 
 docker run -it --rm \
-  -w /root/workshop \
   -v $PWD:$PWD \
   -w $PWD \
+  -e UID="$(id -u)" \
+  -e GID="$(id -g)" \
+  -e USER="$(whoami)" \
+  -e HOME="/home/$(whoami)" \
   gitworkshop tmuxinator start workshop

@@ -46,5 +46,9 @@ else
     fi
 
     # execute as non-root user
+    mv /tmp/.gitconfig $HOME/
+    mv /tmp/.tmux.conf $HOME/
+    mv /tmp/.config    $HOME/
+    mv /tmp/.bashrc    $HOME/
     exec sudo -E -u "$USER" "$@"
 fi

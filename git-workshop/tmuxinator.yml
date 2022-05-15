@@ -1,5 +1,4 @@
 name: workshop
-root: ~/
 
 windows:
   - workshop:
