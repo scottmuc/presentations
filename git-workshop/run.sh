@@ -9,4 +9,4 @@ docker run -it --rm \
   -e GID="$(id -g)" \
   -e USER="handsongit" \
   -e HOME="/home/handsongit" \
-  scottmuc/handsongit
+  ghcr.io/scottmuc/handsongit:latest

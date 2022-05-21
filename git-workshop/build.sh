@@ -2,4 +2,4 @@
 
 set -e
 
-docker build -t scottmuc/handsongit:latest .
+docker build -t ghcr.io/scottmuc/handsongit:latest .
