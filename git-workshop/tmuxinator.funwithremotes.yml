@@ -4,13 +4,16 @@ windows:
   - workspace:
       layout: tiled
       panes:
-        - fun_with_remotes
+        - |
+          fun_with_remotes
+          cd /tmp/git_play/alice
+          clear
+        - less ~/instructions.txt
         - |
           sleep 5
           cd /tmp/git_play/bob
-          watch git log --oneline --graph --decorate --all
+          banner_watcher "Bob's history" git log --oneline --graph --decorate --all
         - |
           sleep 5
           cd /tmp/git_play/alice
-          watch git log --oneline --graph --decorate --all
-        - less ~/instructions.txt
+          banner_watcher "Alice's history" git log --oneline --graph --decorate --all

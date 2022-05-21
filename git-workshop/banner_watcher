@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+message="$1"
+shift
+command_exec=$@
+
+
+function compose_output {
+  echo "$(cat <<BANNER
+$(/usr/games/cowsay "${message}")
+Running:
+  ${command_exec}
+In:
+  `pwd`
+Output:
+$(${command_exec})
+BANNER
+)"
+
+}
+
+output="$(compose_output)"
+
+while(true);  do
+  echo "$output"
+  sleep 2
+  output="$(compose_output)"
+  clear
+done

@@ -4,9 +4,9 @@ windows:
   - workspace:
       layout: tiled
       panes:
-        - /usr/games/cowsay "Welcome to the Git Workshop!"
-        - watch git log --oneline --graph --decorate
-        - watch git log --oneline --graph --decorate --all
-        - watch cat .git/HEAD
-        - watch cat .git/ref/heads/*
+        - echo "Welcome to the hands on git graph workshop"
+        - banner_watcher "Current branches log" git log --oneline --graph --decorate
+        - banner_watcher "All branches log" git log --oneline --graph --decorate --all
+        - banner_watcher "Where's your HEAD at" cat .git/HEAD
+        - banner_watcher "All branch refs" cat .git/refs/heads/*
         - less ~/instructions.txt

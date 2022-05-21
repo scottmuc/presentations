@@ -20,6 +20,7 @@ COPY instructions.txt /etc/skel/instructions.txt
 
 COPY commit_something /etc/skel/bin/commit_something
 COPY fun_with_remotes /etc/skel/bin/fun_with_remotes
+COPY banner_watcher /etc/skel/bin/banner_watcher
 
 # Entrypoint is responsible for creating linux users with the same
 # UID and GID as the host system user so that the shared volume
