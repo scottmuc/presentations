@@ -15,6 +15,10 @@ COPY dot.bashrc /etc/skel/.bashrc
 COPY dot.gitconfig /etc/skel/.gitconfig
 COPY dot.tmux.conf /etc/skel/.tmux.conf
 COPY tmuxinator.yml /etc/skel/.config/tmuxinator/handsongit.yml
+COPY instructions.txt /etc/skel/instructions.txt
+
+COPY commit_something /etc/skel/bin/commit_something
+COPY fun_with_remotes /etc/skel/bin/fun_with_remotes
 
 # Entrypoint is responsible for creating linux users with the same
 # UID and GID as the host system user so that the shared volume

@@ -9,4 +9,4 @@ windows:
         - watch git log --oneline --graph --decorate --all
         - watch cat .git/HEAD
         - watch cat .git/ref/heads/*
-        - cat ~/instructions.txt
+        - less ~/instructions.txt

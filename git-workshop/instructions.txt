@@ -1,0 +1,5 @@
+Welcome to the git workshop!
+
+Some useful commands:
+- commit_something "<message>"
+

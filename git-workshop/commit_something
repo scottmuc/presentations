@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -u
+
+TMPFILE=`mktemp tempfile.XXXXX`
+git add ${TMPFILE}
+git commit -m"${1}"
