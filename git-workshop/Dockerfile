@@ -14,7 +14,8 @@ COPY dot.bash_profile /etc/skel/.bash_profile
 COPY dot.bashrc /etc/skel/.bashrc
 COPY dot.gitconfig /etc/skel/.gitconfig
 COPY dot.tmux.conf /etc/skel/.tmux.conf
-COPY tmuxinator.yml /etc/skel/.config/tmuxinator/handsongit.yml
+COPY tmuxinator.handsongit.yml /etc/skel/.config/tmuxinator/handsongit.yml
+COPY tmuxinator.funwithremotes.yml /etc/skel/.config/tmuxinator/funwithremotes.yml
 COPY instructions.txt /etc/skel/instructions.txt
 
 COPY commit_something /etc/skel/bin/commit_something

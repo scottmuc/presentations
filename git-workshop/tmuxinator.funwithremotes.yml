@@ -1,0 +1,16 @@
+name: funwithremotes
+
+windows:
+  - workspace:
+      layout: tiled
+      panes:
+        - fun_with_remotes
+        - |
+          sleep 5
+          cd /tmp/git_play/bob
+          watch git log --oneline --graph --decorate --all
+        - |
+          sleep 5
+          cd /tmp/git_play/alice
+          watch git log --oneline --graph --decorate --all
+        - less ~/instructions.txt

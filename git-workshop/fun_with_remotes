@@ -15,5 +15,5 @@ cd /tmp/git_play/bob
 touch foo
 git add .
 git commit -m'initial commit'
-git push -u origin master
+git push -u origin main
 git clone /tmp/git_play/repo /tmp/git_play/alice
