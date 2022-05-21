@@ -1,5 +1,3 @@
-echo "loading .bashrc"
-
 export PATH="$HOME/bin:$PATH"
 
 alias tmux_graph='tmuxinator start handsongit'
