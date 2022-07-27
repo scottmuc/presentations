@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+while true; do
+  commit_something "$(xkcd-password-generator 1)"
+  git pull --no-rebase --no-edit
+  git push
+  sleep 30
+done
