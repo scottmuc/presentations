@@ -4,6 +4,7 @@ LABEL org.opencontainers.image.authors="scott@scottmuc.com"
 RUN apt-get update && apt-get install -y \
   cowsay \
   git \
+  nano \
   sudo \
   tmux \
   tmuxinator
