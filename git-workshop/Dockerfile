@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 LABEL org.opencontainers.image.authors="scott@scottmuc.com"
 
+RUN apt-get update && apt-get install software-properties-common -y
+RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update && apt-get install -y \
   cowsay \
   curl \
@@ -24,8 +26,7 @@ COPY commit_something /etc/skel/bin/commit_something
 COPY fun_with_remotes /etc/skel/bin/fun_with_remotes
 COPY banner_watcher /etc/skel/bin/banner_watcher
 COPY xkcd-password-generator /etc/skel/bin/xkcd-password-generator
-COPY rebaser /etc/skel/bin/rebaser
-COPY merger /etc/skel/bin/merger
+COPY commitbot /etc/skel/bin/commitbot
 
 # Entrypoint is responsible for creating linux users with the same
 # UID and GID as the host system user so that the shared volume

@@ -8,7 +8,7 @@ then
 fi
 mkdir -p /tmp/git_play/repo
 cd /tmp/git_play/repo
-git init --bare
+git init --bare --initial-branch main
 cd ..
 git clone /tmp/git_play/repo /tmp/git_play/bob
 cd /tmp/git_play/bob

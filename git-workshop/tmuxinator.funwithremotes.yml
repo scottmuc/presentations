@@ -6,12 +6,14 @@ windows:
       panes:
         - |
           fun_with_remotes
+          sleep 5
           cd /tmp/git_play/alice
           clear
         - |
           sleep 5
           cd /tmp/git_play/bob
-          rebaser
+          clear
+          commitbot merge -p bob
         - |
           sleep 5
           cd /tmp/git_play/alice

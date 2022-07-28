@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+set -e
+
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+main() {
+  case "$1" in
+    rebase)
+      shift
+      rebase_command "$@"
+      ;;
+    merge)
+      shift
+      merge_command "$@"
+      ;;
+    *)
+      print_usage_and_exit
+      ;;
+  esac
+}
+
+rebase_command() {
+  local commit_prefix=""
+  local frequency="30"
+
+  while getopts ":p:f:" opt; do
+    case $opt in
+      p) commit_prefix="$OPTARG"
+      ;;
+      f) frequency="$OPTARG"
+      ;;
+      \?) print_usage_and_exit
+      ;;
+    esac
+  done
+
+  while true; do
+    commit_something "${commit_prefix}: $(xkcd-password-generator 1)"
+    git pull --rebase
+    git push
+    sleep "${frequency}"
+  done
+}
+
+merge_command() {
+  local commit_prefix=""
+  local frequency="30"
+
+  while getopts ":p:f:" opt; do
+    case $opt in
+      p) commit_prefix="$OPTARG"
+      ;;
+      f) frequency="$OPTARG"
+      ;;
+      \?) print_usage_and_exit
+      ;;
+    esac
+  done
+
+  while true; do
+    commit_something "${commit_prefix}: $(xkcd-password-generator 1)"
+    git pull --no-rebase --no-edit
+    git push
+    sleep "${frequency}"
+  done
+}
+
+
+print_usage_and_exit() {
+  cat <<USAGE
+usage: $0 <command>
+
+a bot that periodically commits to the attached branch.
+
+Commands:
+ - rebase
+     -p      commit message prefix
+     -f      commit frequency in seconds (default: 30)
+
+ - merge
+     -p      commit message prefix
+     -f      commit frequency in seconds (default: 30)
+USAGE
+
+  exit 1
+}
+
+main "$@"
