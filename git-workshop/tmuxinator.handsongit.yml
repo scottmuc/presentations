@@ -5,8 +5,8 @@ windows:
       layout: tiled
       panes:
         - echo "Welcome to the hands on git graph workshop"
-        - banner_watcher "Current branches log" git log --oneline --graph --decorate
-        - banner_watcher "All branches log" git log --oneline --graph --decorate --all
+        - banner_watcher "Current branches log" git log --oneline --graph --decorate --color
+        - banner_watcher "All branches log" git log --oneline --graph --decorate --all --color
         - banner_watcher "Where's your HEAD at" cat .git/HEAD
         - banner_watcher "All branch refs" cat .git/refs/heads/*
         - less ~/instructions.txt
