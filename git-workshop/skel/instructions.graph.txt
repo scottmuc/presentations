@@ -1,5 +1,143 @@
-Welcome to the git workshop!
+### Empty Repository
 
-Some useful commands:
-- commit_something "<message>"
+run: git init
 
+Note the contents of HEAD and refs/heads/berlin
+
+Git does a couple things implicitly (as configured in .gitconfig).
+
+### First Commit
+
+We're still not in a normal state because we have another exceptional condition
+where the first commit does not have a parent. Explain the concept of the root
+node.
+
+    git commit -m 'great'
+    # the contents of .git/HEAD are the same
+    # .git/refs/heads/berlin now exists and the contents of the file
+    # is the SHA of the first commit
+
+### Adding More Commits
+
+Adding a 2nd commit. The new commit will have to point to the commit that
+berlin is pointing to. Once that's complete, berlin needs to update itself and
+point to the new commit. 
+
+    git commit -m 'is'
+    # .git/refs/heads/berlin now contains the SHA of the new commit
+    # The latest commit will have a parent SHA that is the SHA
+    # of the first commit
+
+Ask how does the latest commit know their parent?
+
+Add a couple more commits (5 total) 
+
+    git commit -m 'git'
+    git commit -m 'think'
+    git commit -m 'I'
+
+Call git log to hear the commit messages in reverse order.
+
+    git log
+
+They should say out loud "I think git is great".
+
+Ask what they think the branch is doing, what's its job?
+Ask what HEAD has been doing this whole time.
+
+### Detached HEAD State
+
+Checkout the SHA for the commit with the message 'git'.
+
+    git checkout HEAD^^
+
+What happened to HEAD, and what happened to the berlin branch?
+
+Explain why this is called a detached HEAD state.
+
+    cat .git/HEAD
+    # This will print the SHA that HEAD is pointing to. If HEAD
+    # is pointing to a SHA and not a ref, then you're workspace
+    # is in a detached HEAD state.
+
+Do a `git log` and they should say "git is great". Point out that this is
+because git log starts at HEAD not at berlin
+
+### Checkout To Safety
+
+Checkout the berlin branch. This should make HEAD point back to the
+berlin branch.
+
+    git checkout berlin
+    cat .git/HEAD
+    ref: refs/heads/berlin
+
+Explain how checking out a branch re-attaches HEAD.
+
+### Creating A Branch
+
+Create a branch called munich. Now another person is a branch and is
+pointing to the same commit that berlin is pointing to.
+
+    git branch munich
+    # cat .git/refs/heads/berlin and .git/refs/heads/munich
+    # are the same commit SHA!
+
+Then checkout this new branch
+
+    git checkout munich
+    cat .git/HEAD
+    ref: refs/heads/munich
+
+### Let's Reset
+
+Get back onto berlin and reset it to EF12. This should make berlin point to the commit with
+the message 'think'.
+
+    git checkout berlin
+    git reset EF12
+
+The participants should see the subtle difference between a checkout and a
+reset. The commands are similar but they operate on different objects. They
+should also notice how the berlin branch is left unaffected.
+
+### I Feel A Divergence In The Graph
+
+Make a new commit with the message 'do not'.
+
+    git commit -m 'do not'
+
+Now there should be a divergence in the graph. A `git log` should result in
+"do not think git is great".
+
+Ask why the message 'I' was not spoken
+
+Now their minds should be blown a little bit. This gets into the power of git
+and knowing the graph.
+
+### All Your Rebase Are Belong To Us
+
+Lastly, perform `git rebase berlin munich`. This should replay the 'I'
+commit on top of the 'do not' commit. The tricky part about this one is that the
+original 'I' commit does not change. Someone else joins the graph and points to
+'do not' with their own message of 'I'. Also, munich moves to the replayed
+commit and HEAD now points to munich. `git log` should say "I do not think git
+is great".
+
+    git rebase berlin munich
+
+Note that HEAD will always point to the branch that is being rebased.
+
+Lesson should be that the graph is immutable. The only things that can change
+values are branches and HEAD.
+
+### Garbage Man Cometh
+
+Maybe emulate git garbage collection and destroy the unreferenced commit
+that got lost due to the rebase.
+
+    git -c gc.reflogExpireUnreachable=0 -c gc.pruneExpire=now gc
+
+### Burning The Reflog
+
+Ask about the journal of commands
