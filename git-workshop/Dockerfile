@@ -3,15 +3,20 @@ LABEL org.opencontainers.image.authors="scott@scottmuc.com"
 
 RUN apt-get update && apt-get install software-properties-common -y
 RUN add-apt-repository ppa:git-core/ppa
-RUN apt-get update && apt-get install -y \
+
+RUN apt update && apt install -y \
   cowsay \
   curl \
   git \
-  gum \
   nano \
   sudo \
   tmux \
   tmuxinator
+
+RUN mkdir -p /etc/apt/keyrings \
+  && curl -fsSL https://repo.charm.sh/apt/gpg.key | gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | tee /etc/apt/sources.list.d/charm.list
+RUN apt update && apt install -y gum
 
 # Setup the skeleton home directory so that the created user gets
 # all the shell improvements
