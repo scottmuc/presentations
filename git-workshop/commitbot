@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-
-#!/usr/bin/env bash
-
-set -e
 set -o pipefail
 
 main() {
@@ -39,7 +35,7 @@ rebase_command() {
   done
 
   while true; do
-    commit_something "${commit_prefix}: $(xkcd-password-generator 1)"
+    commit_something "${commit_prefix}: $(random-words 1)"
     git pull --rebase
     git push
     sleep "${frequency}"
@@ -62,7 +58,7 @@ merge_command() {
   done
 
   while true; do
-    commit_something "${commit_prefix}: $(xkcd-password-generator 1)"
+    commit_something "${commit_prefix}: $(random-words 1)"
     git pull --no-rebase --no-edit
     git push
     sleep "${frequency}"

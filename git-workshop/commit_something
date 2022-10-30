@@ -3,5 +3,6 @@
 set -u
 
 TMPFILE=`mktemp tempfile.XXXXX`
+random-words > ${TMPFILE}
 git add ${TMPFILE}
 git commit -m"${1}"

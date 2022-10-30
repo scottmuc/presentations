@@ -25,7 +25,7 @@ COPY instructions.txt /etc/skel/instructions.txt
 COPY commit_something /etc/skel/bin/commit_something
 COPY fun_with_remotes /etc/skel/bin/fun_with_remotes
 COPY banner_watcher /etc/skel/bin/banner_watcher
-COPY xkcd-password-generator /etc/skel/bin/xkcd-password-generator
+COPY random-words /etc/skel/bin/random-words
 COPY commitbot /etc/skel/bin/commitbot
 
 # Entrypoint is responsible for creating linux users with the same
