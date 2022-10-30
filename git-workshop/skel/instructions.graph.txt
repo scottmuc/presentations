@@ -12,10 +12,8 @@ We're still not in a normal state because we have another exceptional condition
 where the first commit does not have a parent. Explain the concept of the root
 node.
 
-    git commit -m 'great'
-    # the contents of .git/HEAD are the same
-    # .git/refs/heads/berlin now exists and the contents of the file
-    # is the SHA of the first commit
+run: commit_something 'great'
+run: git cat-file -t p HEAD
 
 ### Adding More Commits
 
@@ -23,42 +21,42 @@ Adding a 2nd commit. The new commit will have to point to the commit that
 berlin is pointing to. Once that's complete, berlin needs to update itself and
 point to the new commit. 
 
-    git commit -m 'is'
-    # .git/refs/heads/berlin now contains the SHA of the new commit
-    # The latest commit will have a parent SHA that is the SHA
-    # of the first commit
+run: commit_something 'is'
 
-Ask how does the latest commit know their parent?
+What do you notice about HEAD?
+What changes in refs/heads/berlin?
+
+What's structurally different between the following:
+
+git cat-file -t p HEAD
+git cat-file -t p HEAD^
+
+How does the latest commit know its parent?
 
 Add a couple more commits (5 total) 
 
-    git commit -m 'git'
-    git commit -m 'think'
-    git commit -m 'I'
+run: commit_something 'git'
+run: commit_something 'think'
+run: commit_something 'I'
 
 Call git log to hear the commit messages in reverse order.
 
-    git log
+run: git log --oneline
 
-They should say out loud "I think git is great".
+Why does it print "I think git is great"?
 
-Ask what they think the branch is doing, what's its job?
-Ask what HEAD has been doing this whole time.
+What do you think the job of the branch is?
+What is the job of HEAD?
+Why did git log print out those commits?
 
 ### Detached HEAD State
 
 Checkout the SHA for the commit with the message 'git'.
 
-    git checkout HEAD^^
+run: git checkout HEAD^^
 
 What happened to HEAD, and what happened to the berlin branch?
-
-Explain why this is called a detached HEAD state.
-
-    cat .git/HEAD
-    # This will print the SHA that HEAD is pointing to. If HEAD
-    # is pointing to a SHA and not a ref, then you're workspace
-    # is in a detached HEAD state.
+What is a detached head state? What is is HEAD detached from?
 
 Do a `git log` and they should say "git is great". Point out that this is
 because git log starts at HEAD not at berlin
@@ -68,44 +66,40 @@ because git log starts at HEAD not at berlin
 Checkout the berlin branch. This should make HEAD point back to the
 berlin branch.
 
-    git checkout berlin
-    cat .git/HEAD
-    ref: refs/heads/berlin
+run: git checkout berlin
 
-Explain how checking out a branch re-attaches HEAD.
+What did git checkout do to HEAD?
 
 ### Creating A Branch
 
 Create a branch called munich. Now another person is a branch and is
 pointing to the same commit that berlin is pointing to.
 
-    git branch munich
-    # cat .git/refs/heads/berlin and .git/refs/heads/munich
-    # are the same commit SHA!
+run: git branch munich
 
-Then checkout this new branch
+What are your observations of the contents of the files in refs/heads?
 
-    git checkout munich
-    cat .git/HEAD
-    ref: refs/heads/munich
+Then checkout this new branch (ignore checkout -b shorthand)
+
+run: git checkout munich
+
+What git object changed?
 
 ### Let's Reset
 
 Get back onto berlin and reset it to EF12. This should make berlin point to the commit with
 the message 'think'.
 
-    git checkout berlin
-    git reset EF12
+run: git checkout berlin
+run: git reset --hard HEAD^
 
-The participants should see the subtle difference between a checkout and a
-reset. The commands are similar but they operate on different objects. They
-should also notice how the berlin branch is left unaffected.
+What git object changed?
 
 ### I Feel A Divergence In The Graph
 
 Make a new commit with the message 'do not'.
 
-    git commit -m 'do not'
+run: commit_something 'do not'
 
 Now there should be a divergence in the graph. A `git log` should result in
 "do not think git is great".
@@ -124,7 +118,7 @@ original 'I' commit does not change. Someone else joins the graph and points to
 commit and HEAD now points to munich. `git log` should say "I do not think git
 is great".
 
-    git rebase berlin munich
+run: git rebase berlin munich
 
 Note that HEAD will always point to the branch that is being rebased.
 
