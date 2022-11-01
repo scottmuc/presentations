@@ -17,8 +17,8 @@ windows:
         - |
           sleep 5
           cd /tmp/git_play/alice
-          banner_watcher "Alice's history" git log --oneline --graph --decorate --all --color
+          banner_watcher "Alice's history" git log --oneline --graph --decorate --all --color -10
         - |
           sleep 5
           cd /tmp/git_play/bob
-          banner_watcher "Bob's history" git log --oneline --graph --decorate --all --color
+          banner_watcher "Bob's history" git log --oneline --graph --decorate --all --color -10
