@@ -1,25 +1,18 @@
-### Empty Repository
+# Empty Repository
 
 run: git init
 
-Note the contents of HEAD and refs/heads/berlin
+Note the contents of HEAD and refs/heads/
 
 Git does a couple things implicitly (as configured in .gitconfig).
 
-### First Commit
-
-We're still not in a normal state because we have another exceptional condition
-where the first commit does not have a parent. Explain the concept of the root
-node.
+# First Commit
 
 run: commit_something 'great'
-run: git cat-file -t p HEAD
 
-### Adding More Commits
+Note the contents of refs/heads/berlin
 
-Adding a 2nd commit. The new commit will have to point to the commit that
-berlin is pointing to. Once that's complete, berlin needs to update itself and
-point to the new commit. 
+# Adding More Commits
 
 run: commit_something 'is'
 
@@ -33,23 +26,16 @@ git cat-file -t p HEAD^
 
 How does the latest commit know its parent?
 
-Add a couple more commits (5 total) 
+Add a few more commits (5 total) 
 
 run: commit_something 'git'
 run: commit_something 'think'
 run: commit_something 'I'
 
-Call git log to hear the commit messages in reverse order.
-
-run: git log --oneline
-
-Why does it print "I think git is great"?
-
 What do you think the job of the branch is?
 What is the job of HEAD?
-Why did git log print out those commits?
 
-### Detached HEAD State
+# Detached HEAD State
 
 Checkout the SHA for the commit with the message 'git'.
 
@@ -58,10 +44,11 @@ run: git checkout HEAD^^
 What happened to HEAD, and what happened to the berlin branch?
 What is a detached head state? What is is HEAD detached from?
 
-Do a `git log` and they should say "git is great". Point out that this is
-because git log starts at HEAD not at berlin
+run: git log --oneline
 
-### Checkout To Safety
+What commits did this output? What was left out?
+
+# Checkout To Safety
 
 Checkout the berlin branch. This should make HEAD point back to the
 berlin branch.
@@ -70,10 +57,7 @@ run: git checkout berlin
 
 What did git checkout do to HEAD?
 
-### Creating A Branch
-
-Create a branch called munich. Now another person is a branch and is
-pointing to the same commit that berlin is pointing to.
+# Creating A Branch
 
 run: git branch munich
 
@@ -83,19 +67,19 @@ Then checkout this new branch (ignore checkout -b shorthand)
 
 run: git checkout munich
 
-What git object changed?
+Which git object changed?
 
 ### Let's Reset
 
-Get back onto berlin and reset it to EF12. This should make berlin point to the commit with
-the message 'think'.
+Get back onto berlin and reset it to HEAD^. This should make berlin point
+to the commit with the message 'think'.
 
 run: git checkout berlin
 run: git reset --hard HEAD^
 
 What git object changed?
 
-### I Feel A Divergence In The Graph
+# I Feel A Divergence In The Graph
 
 Make a new commit with the message 'do not'.
 
@@ -104,12 +88,11 @@ run: commit_something 'do not'
 Now there should be a divergence in the graph. A `git log` should result in
 "do not think git is great".
 
-Ask why the message 'I' was not spoken
+run: git log --oneline
 
-Now their minds should be blown a little bit. This gets into the power of git
-and knowing the graph.
+Why is 'I' not printed?
 
-### All Your Rebase Are Belong To Us
+# All Your Rebase Are Belong To Us
 
 Lastly, perform `git rebase berlin munich`. This should replay the 'I'
 commit on top of the 'do not' commit. The tricky part about this one is that the
@@ -122,16 +105,19 @@ run: git rebase berlin munich
 
 Note that HEAD will always point to the branch that is being rebased.
 
-Lesson should be that the graph is immutable. The only things that can change
-values are branches and HEAD.
+run: git reflog
 
-### Garbage Man Cometh
+Does the previous commit 'I' exist?
+
+# Garbage Man Cometh
 
 Maybe emulate git garbage collection and destroy the unreferenced commit
 that got lost due to the rebase.
 
     git -c gc.reflogExpireUnreachable=0 -c gc.pruneExpire=now gc
 
-### Burning The Reflog
+# Burning The Reflog
 
 Ask about the journal of commands
+
+SCROLL TO THE TOP

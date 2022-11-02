@@ -9,4 +9,4 @@ windows:
         - banner_watcher "All branches log" git log --oneline --graph --decorate --all --color
         - banner_watcher "Where's your HEAD at" cat .git/HEAD
         - banner_watcher "All branch refs" cat .git/refs/heads/*
-        - less ~/instructions.graph.txt
+        - cat ~/instructions.graph.txt
