@@ -21,8 +21,8 @@ What changes in refs/heads/berlin?
 
 What's structurally different between the following:
 
-git cat-file -t p HEAD
-git cat-file -t p HEAD^
+git cat-file -p HEAD
+git cat-file -p HEAD^
 
 How does the latest commit know its parent?
 
