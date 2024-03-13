@@ -26,3 +26,18 @@ docker run -it --rm \
   -e HOME="/home/handsongit" \
   ghcr.io/scottmuc/handsongit:latest
 ```
+
+Once you see a prompt that resembles something like:
+
+`handsongit@036eb4b7ad3e:/workspace$ `
+
+Now you can run either:
+
+* `start_graph_workshop`
+* `start_gitremotes_workshop`
+
+To quit, enter the command relevant to the workshop you're running:
+
+* `stop_graph_workshop`
+* `stop_gitremotes_workshop`
+

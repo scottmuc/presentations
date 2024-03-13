@@ -1,8 +1,9 @@
 export PATH="$HOME/bin:$PATH"
 
-alias tmux_graph='tmuxinator start gitgraph'
-alias gg_graph='tmuxinator stop gitgraph'
-alias tmux_remotes='tmuxinator start gitremotes'
-alias gg_remotes='tmuxinator stop gitremotes'
+alias start_graph_workshop='tmuxinator start gitgraph'
+alias stop_graph_workshop='tmuxinator stop gitgraph'
+
+alias start_gitremotes_workshop='tmuxinator start gitremotes'
+alias stop_gitremotes_workshop='tmuxinator stop gitremotes'
 
 export EDITOR=nano
