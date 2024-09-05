@@ -2,6 +2,9 @@
 
 set -eu -o pipefail
 
+PYTHON_CMD=python3
+PIP_CMD=pip3
+
 main() {
     check_python
     check_pip
@@ -17,7 +20,7 @@ run_tests() {
 }
 
 install_dependencies() {
-    pip install -r ./requirements.txt
+    $PIP_CMD install -r ./requirements.txt
 }
 
 activate_virtualenv() {
@@ -40,21 +43,21 @@ check_virtualenv() {
 }
 
 check_pip() {
-    if ! command -v pip >/dev/null; then
+    if ! command -v $PIP_CMD >/dev/null; then
         echo "Pip not detected, please install pip in your python environment"
         exit 1
     fi
-    echo "Pip location : $(command -v pip)"
-    echo "Pip version  : $(pip --version)"
+    echo "Pip location : $(command -v $PIP_CMD)"
+    echo "Pip version  : $($PIP_CMD --version)"
 }
 
 check_python() {
-    if ! command -v python >/dev/null; then
+    if ! command -v $PYTHON_CMD >/dev/null; then
         echo "Python not detected, please install python first"
         exit 1
     fi
-    echo "Python location : $(command -v python)"
-    echo "Python version  : $(python --version)"
+    echo "Python location : $(command -v $PYTHON_CMD)"
+    echo "Python version  : $($PYTHON_CMD --version)"
 }
 
 main "$@"
