@@ -1,4 +1,7 @@
 from behave import *
+import tempfile
+import shutil
+import subprocess
 
 @given('we have behave installed')
 def step_impl(context):
@@ -15,7 +18,22 @@ def step_impl(context):
 
 @given(u'there was a commit with a commit message that is "foo"')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given there was a commit with a commit message that is "foo"')
+    # we need a directory to nominate a repository
+    dirpath = tempfile.mkdtemp()
+    # shutil.rmtree(dirpath)
+
+    # we need to initialize it with git init
+    p = subprocess.Popen(['git', 'init'], cwd=dirpath)
+    p.wait()
+
+    # we need to git commit -m "foo"
+    p = subprocess.Popen(['touch', 'foo'], cwd=dirpath)
+    p.wait()
+
+    p = subprocess.Popen(['git', 'commit', '-am', 'foo'], cwd=dirpath)
+    p.wait()
+
+    print(dirpath)
 
 
 @when(u'we run the log')
