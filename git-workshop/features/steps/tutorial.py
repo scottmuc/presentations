@@ -53,8 +53,6 @@ def step_impl(context):
     # we need to obtain the output of the git log command
     stdout, stderr = p.communicate()
     context.log_output = stdout
-    print('context.log_output', context.log_output)
-    print('stdout', stdout)
     
 
 
