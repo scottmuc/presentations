@@ -42,7 +42,21 @@ def step_impl(context):
     context.log_output = stdout
     
 
-
 @then(u'the log shows an entry with the message that is "foo"')
 def step_impl(context):
     assert 'foo' in context.log_output
+
+
+@given(u'I have an empty repository')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Given I have an empty repository')
+
+
+@when(u'a series of commits are made with messages')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When a series of commits are made with messages')
+
+
+@then(u'the "git log --oneline" like')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then the "git log --oneline" like')
