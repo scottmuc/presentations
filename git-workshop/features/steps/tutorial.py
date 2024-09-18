@@ -4,19 +4,6 @@ import shutil
 import subprocess
 import re
 
-@given('we have behave installed')
-def step_impl(context):
-    pass
-
-@when('we implement a test')
-def step_impl(context):
-    assert True is not False
-
-@then('behave will test it for us!')
-def step_impl(context):
-    assert context.failed is False
-
-
 @given(u'there was a commit with a commit message that is "foo"')
 def step_impl(context):
     # we need a directory to nominate a repository
