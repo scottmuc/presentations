@@ -60,3 +60,36 @@ def step_impl(context):
 @then(u'the "git log --oneline" like')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then the "git log --oneline" like')
+
+@then(u'the "git log --oneline" prints out')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then the "git log --oneline" prints out')
+
+
+
+
+
+
+@given(u'I have a directory that is not a git repository')
+def step_impl(context):
+    dirpath = tempfile.mkdtemp()
+    p = subprocess.Popen(['ls', '.git'], cwd=dirpath)
+    p.wait()   
+    assert p.returncode == 1
+
+
+@when(u'I run git init in the directory')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I run git init in the directory')
+
+
+@then(u'a .git directory exists')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then a .git directory exists')
+
+
+@then(u'.git/HEAD contains the text master')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then .git/HEAD contains the text master')
+
+
