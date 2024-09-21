@@ -73,9 +73,8 @@ def step_impl(context):
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
     dirpath = tempfile.mkdtemp()
-    p = subprocess.Popen(['ls', '.git'], cwd=dirpath)
-    p.wait()   
-    assert p.returncode == 1
+    exitcode = subprocess.run(['ls', '.git'], cwd=dirpath)
+    assert exitcode != 0
 
 
 @when(u'I run git init in the directory')
