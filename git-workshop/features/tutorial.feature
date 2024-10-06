@@ -4,7 +4,7 @@ Feature: Git Workshop Faciliator Script
     Given I have a directory that is not a git repository
     When I run git init in the directory
     Then a .git directory exists
-    And .git/HEAD contains the text master
+    And .git/refs contains a directory named heads
 
   Scenario: commit something
     Given there was a commit with a commit message that is "foo"

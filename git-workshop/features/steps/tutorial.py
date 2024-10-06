@@ -1,8 +1,7 @@
 from behave import *
 import tempfile
-import shutil
 import subprocess
-import re
+import os
 
 @given(u'there was a commit with a commit message that is "foo"')
 def step_impl(context):
@@ -74,21 +73,24 @@ def step_impl(context):
 def step_impl(context):
     dirpath = tempfile.mkdtemp()
     result = subprocess.run(['ls', '.git'], cwd=dirpath)
+    context.dirpath = dirpath
     assert result.returncode != 0
 
 
 @when(u'I run git init in the directory')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When I run git init in the directory')
+    subprocess.run(['git', 'init'], cwd=context.dirpath)
 
 
 @then(u'a .git directory exists')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then a .git directory exists')
+    result = subprocess.run(['ls', '.git'], cwd=context.dirpath)
+    assert result.returncode == 0
 
 
-@then(u'.git/HEAD contains the text master')
+@then(u'.git/refs contains a directory named heads')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then .git/HEAD contains the text master')
+    dir_path = os.path.join(context.dirpath, '.git', 'refs', 'heads')
+    assert os.path.isdir(dir_path)
 
 
