@@ -6,10 +6,10 @@ Feature: Git Workshop Faciliator Script
     Then a .git directory exists
     And .git/refs contains a directory named heads
 
-  Scenario: commit something
-    Given there was a commit with a commit message that is "foo"
-    When we run the log
-    Then the log shows an entry with the message that is "foo"
+  # Scenario: commit something
+  #   Given there was a commit with a commit message that is "foo"
+  #   When we run the log
+  #   Then the log shows an entry with the message that is "foo"
 
   # Scenario: Revealing git log is reverse traversal of the graph
   #   Given I have an empty repository

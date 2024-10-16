@@ -63,34 +63,3 @@ def step_impl(context):
 @then(u'the "git log --oneline" prints out')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then the "git log --oneline" prints out')
-
-
-
-
-
-
-@given(u'I have a directory that is not a git repository')
-def step_impl(context):
-    dirpath = tempfile.mkdtemp()
-    result = subprocess.run(['ls', '.git'], cwd=dirpath)
-    context.dirpath = dirpath
-    assert result.returncode != 0
-
-
-@when(u'I run git init in the directory')
-def step_impl(context):
-    subprocess.run(['git', 'init'], cwd=context.dirpath)
-
-
-@then(u'a .git directory exists')
-def step_impl(context):
-    result = subprocess.run(['ls', '.git'], cwd=context.dirpath)
-    assert result.returncode == 0
-
-
-@then(u'.git/refs contains a directory named heads')
-def step_impl(context):
-    dir_path = os.path.join(context.dirpath, '.git', 'refs', 'heads')
-    assert os.path.isdir(dir_path)
-
-
