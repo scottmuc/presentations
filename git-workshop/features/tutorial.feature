@@ -1,9 +1,11 @@
 Feature: Git Workshop Faciliator Script
 
+  # https://github.com/scottmuc/presentations/tree/main/git#empty-repository
   Scenario: Initializing a new repository
     Given I have a directory that is not a git repository
     When I run git init in the directory
     Then a .git directory exists
+    And .git/HEAD contains the text "ref: refs/heads/main"
     And .git/refs contains a directory named heads
 
   # Scenario: commit something

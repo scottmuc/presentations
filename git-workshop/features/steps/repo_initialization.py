@@ -1,4 +1,5 @@
 from behave import *
+from pathlib import Path
 import tempfile
 import subprocess
 import os
@@ -25,6 +26,13 @@ def step_impl(context):
 def step_impl(context):
     result = subprocess.run(['ls', '.git'], cwd=context.dirpath)
     assert result.returncode == 0
+
+
+@then(u'.git/HEAD contains the text "ref: refs/heads/main"')
+def step_impl(context):
+    git_head_path = os.path.join(context.dirpath, '.git', 'HEAD')
+    contents = Path(git_head_path).read_text().strip()
+    assert contents == "ref: refs/heads/main"
 
 
 @then(u'.git/refs contains a directory named heads')
