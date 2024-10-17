@@ -46,19 +46,6 @@ def step_impl(context):
     assert 'foo' in context.log_output
 
 
-@given(u'I have an empty repository')
-def step_impl(context):
-    context.dirpath = tempfile.mkdtemp()
-    p = subprocess.Popen(['git', 'init'], cwd=context.dirpath)
-    p.wait()
-
-    p = subprocess.Popen(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=context.dirpath, text=True)
-    
-    # prevent stderr to be written to console even if test is succeeding
-    stdout, stderr = p.communicate()
-    
-    assert "nothing to commit (create/copy files and use \"git add\" to track)" in stdout, f"Expected an empty repository, but got: {stdout}" 
-
 @when(u'a series of commits are made with messages')
 def step_impl(context):
     raise NotImplementedError(u'STEP: When a series of commits are made with messages')

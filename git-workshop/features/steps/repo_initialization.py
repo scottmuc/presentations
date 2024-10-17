@@ -33,3 +33,11 @@ def step_impl(context):
     git_head_path = os.path.join(context.dirpath, '.git', 'HEAD')
     contents = Path(git_head_path).read_text().strip()
     assert contents == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{contents}'"
+
+
+@given(u'I have an empty repository')
+def step_impl(context):
+    context.execute_steps(u'''
+        Given I have a directory that is not a git repository
+        When I run git init in the directory
+    ''')
