@@ -12,8 +12,8 @@ Feature: Git Workshop Faciliator Script
   #   When we run the log
   #   Then the log shows an entry with the message that is "foo"
 
-  # Scenario: Revealing git log is reverse traversal of the graph
-  #   Given I have an empty repository
+  Scenario: Revealing git log is reverse traversal of the graph
+    Given I have an empty repository
   #   When a series of commits are made with messages
   #     | great   |
   #     | is      |
