@@ -32,7 +32,7 @@ def step_impl(context):
 def step_impl(context):
     git_head_path = os.path.join(context.dirpath, '.git', 'HEAD')
     contents = Path(git_head_path).read_text().strip()
-    assert contents == "ref: refs/heads/main"
+    assert contents == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{contents}'"
 
 
 @then(u'.git/refs contains a directory named heads')
