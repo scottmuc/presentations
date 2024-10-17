@@ -6,9 +6,8 @@ import os
 
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
-    dirpath = tempfile.mkdtemp()
-    result = subprocess.run(['ls', '.git'], cwd=dirpath)
-    context.dirpath = dirpath
+    context.dirpath = tempfile.mkdtemp()
+    result = subprocess.run(['ls', '.git'], cwd=context.dirpath)
     assert result.returncode != 0
 
 
@@ -33,6 +32,12 @@ def step_impl(context):
     git_head_path = os.path.join(context.dirpath, '.git', 'HEAD')
     contents = Path(git_head_path).read_text().strip()
     assert contents == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{contents}'"
+
+
+@then(u'.git/refs/heads/main doesn\'t exist')
+def step_impl(context):
+    result = subprocess.run(['ls', '.git/refs/heads/main'], cwd=context.dirpath)
+    assert result.returncode != 0
 
 
 @given(u'I have an empty repository')

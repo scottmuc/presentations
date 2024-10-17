@@ -6,6 +6,7 @@ Feature: Git Workshop Faciliator Script
     When I run git init in the directory
     Then a .git directory exists
     And .git/HEAD contains the text "ref: refs/heads/main"
+    And .git/refs/heads/main doesn't exist
 
   # Scenario: commit something
   #   Given there was a commit with a commit message that is "foo"
