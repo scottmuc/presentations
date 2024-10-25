@@ -46,11 +46,6 @@ def step_impl(context):
     assert 'foo' in context.log_output
 
 
-@when(u'a series of commits are made with messages')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When a series of commits are made with messages')
-
-
 @then(u'the "git log --oneline" like')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then the "git log --oneline" like')

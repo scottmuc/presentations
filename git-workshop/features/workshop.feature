@@ -15,16 +15,17 @@ Feature: Git Workshop Faciliator Script
 
   Scenario: Revealing git log is reverse traversal of the graph
     Given I have an empty repository
-  #   When a series of commits are made with messages
-  #     | great   |
-  #     | is      |
-  #     | git     |
-  #     | think   |
-  #     | I       |
-  #   Then the "git log --oneline" prints out
-  #     | sha          | message |
-  #     | ^[0-9a-f]{7} | I       |
-  #     | ^[0-9a-f]{7} | think   |
-  #     | ^[0-9a-f]{7} | git     |
-  #     | ^[0-9a-f]{7} | is      |
-  #     | ^[0-9a-f]{7} | great   |
+    When a series of commits are made with messages
+      | message |
+      | great   |
+      | is      |
+      | git     |
+      | think   |
+      | I       |
+    Then running "git log --oneline" prints out
+      | sha          | message |
+      | ^[0-9a-f]{7} | I       |
+      | ^[0-9a-f]{7} | think   |
+      | ^[0-9a-f]{7} | git     |
+      | ^[0-9a-f]{7} | is      |
+      | ^[0-9a-f]{7} | great   |
