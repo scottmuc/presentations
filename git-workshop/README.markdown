@@ -33,11 +33,12 @@ Once you see a prompt that resembles something like:
 
 Now you can run either:
 
-* `start_graph_workshop`
-* `start_gitremotes_workshop`
+- `start_graph_workshop`
+- `start_gitremotes_workshop`
 
 To quit, enter the command relevant to the workshop you're running:
 
-* `stop_graph_workshop`
-* `stop_gitremotes_workshop`
+- `stop_graph_workshop`
+- `stop_gitremotes_workshop`
 
+The workshop is designed to follow [this script](../git/README.markdown).

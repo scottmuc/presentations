@@ -29,3 +29,15 @@ Feature: Git Workshop Faciliator Script
       | ^[0-9a-f]{7} | git     |
       | ^[0-9a-f]{7} | is      |
       | ^[0-9a-f]{7} | great   |
+
+  Scenario: Examining git log in detached HEAD state
+   Given a series of commits are made with messages
+      | message |
+      | great   |
+      | is      |
+      | git     |
+      | think   |
+      | I       |
+    When I checkout the SHA for the commit with the message 'git'
+    Then HEAD is pointing to a SHA
+    And HEAD is not pointing to a ref
