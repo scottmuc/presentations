@@ -20,22 +20,24 @@ def step_impl(context):
 @when(u'I checkout the SHA for the commit with the message \'git\'')
 def step_impl(context):
     context.dirpath = tempfile.mkdtemp()
-    p = subprocess.Popen(['git', 'log', '--oneline'], cwd=context.dirpath, stdout=subprocess.PIPE, text=True)
+    p = subprocess.Popen(['git', 'rev-parse', 'HEAD^^'], cwd=context.dirpath, stdout=subprocess.PIPE, text=True)
     p.wait()
-    stdout, _ = p.communicate()
+    context.sha, _ = p.communicate()
 
-    # How to get the sha? :)
-    sha = 'some_sha_here'
-
-    p = subprocess.Popen(['git', 'checkout', sha], cwd=context.dirpath)
-    p.wait()
+    p = subprocess.run(['git', 'checkout', context.sha], cwd=context.dirpath)
 
 
 @then(u'HEAD is pointing to a SHA')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then HEAD is pointing to a SHA')
+    p = subprocess.Popen(['cat', '.git/HEAD '], cwd=context.dirpath, stdout=subprocess.PIPE, text=True)
+    p.wait()
+    stdout, _ = p.communicate()
+    assert stdout == context.sha
 
 
 @then(u'HEAD is not pointing to a ref')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then HEAD is not pointing to a ref')
+    p = subprocess.Popen(['cat', '.git/HEAD '], cwd=context.dirpath, stdout=subprocess.PIPE, text=True)
+    p.wait()
+    stdout, _ = p.communicate()
+    assert not stdout.startswith('ref: ')
