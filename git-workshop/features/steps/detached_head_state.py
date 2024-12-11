@@ -17,10 +17,10 @@ def step_impl(context):
     ''')
 
 
-@when(u'I checkout the SHA for the commit with the message \'git\'')
+@when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
     context.sha = capture_output_from_commands(['git', 'rev-parse', 'HEAD^^'], context)
-    result = subprocess.run(['git', 'checkout', context.sha], cwd=context.dirpath, check=True)
+    result = subprocess.run(['git', 'checkout', '-q', context.sha], cwd=context.dirpath, check=True)
     assert result.returncode == 0
 
 

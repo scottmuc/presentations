@@ -32,9 +32,8 @@ def step_impl(context):
 
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
 def step_impl(context):
-    git_head_path = os.path.join(context.dirpath, '.git', 'HEAD')
-    contents = Path(git_head_path).read_text().strip()
-    assert contents == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{contents}'"
+    head_content = capture_output_from_commands(['cat', '.git/HEAD'], context)
+    assert head_content == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{head_content}'"
 
 
 @then(u'.git/refs/heads/main doesn\'t exist')
