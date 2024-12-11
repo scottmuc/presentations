@@ -30,7 +30,7 @@ Feature: Git Workshop Faciliator Script
       | ^[0-9a-f]{7} | is      |
       | ^[0-9a-f]{7} | great   |
 
-  Scenario: Examining git log in detached HEAD state
+  Scenario: Examining git log in a detached HEAD state
    Given a series of commits are made with messages
       | message |
       | great   |
@@ -38,5 +38,5 @@ Feature: Git Workshop Faciliator Script
       | git     |
       | think   |
       | I       |
-    When I checkout the SHA for the commit with the message 'git'
-    Then HEAD is pointing to a SHA and not a ref
+    When I checkout the commit with the message 'git' using its SHA
+    Then git is in a detached HEAD state

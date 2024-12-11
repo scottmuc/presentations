@@ -24,7 +24,7 @@ def step_impl(context):
     assert result.returncode == 0
 
 
-@then(u'HEAD is pointing to a SHA and not a ref')
+@then(u'git is in a detached HEAD state')
 def step_impl(context):
     head_content = capture_output_from_commands(['cat', '.git/HEAD'], context)
     assert head_content == context.sha
