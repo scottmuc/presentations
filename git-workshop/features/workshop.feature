@@ -39,5 +39,4 @@ Feature: Git Workshop Faciliator Script
       | think   |
       | I       |
     When I checkout the SHA for the commit with the message 'git'
-    Then HEAD is pointing to a SHA
-    And HEAD is not pointing to a ref
+    Then HEAD is pointing to a SHA and not a ref
