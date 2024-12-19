@@ -40,3 +40,9 @@ Feature: Git Workshop Faciliator Script
       | I       |
     When I checkout the commit with the message 'git' using its SHA
     Then git is in a detached HEAD state
+
+
+  # Scenario: Re-attach a commit to a branch from a detached HEAD state
+  #   Given HEAD is in a detached state
+  #   When creating a branch from the commit HEAD is pointing to
+  #   Then HEAD is reattached to the branch
