@@ -53,8 +53,8 @@ def step_impl(context):
    
 @then(u'running "git log --oneline" prints out')
 def step_impl(context):
-    command_runner = CommandRunner()
-    log_output = command_runner.capture_output_from_commands(context.repo.dirpath,['git', 'log', '--oneline'])
+    cmd = CommandRunner()
+    log_output = cmd.capture_output_from_commands(context.repo.dirpath,['git', 'log', '--oneline'])
     commit_messages = log_output.split('\n')
     sha_pattern = r'[0-9a-f]{7}'
 
