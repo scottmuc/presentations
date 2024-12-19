@@ -15,7 +15,7 @@ Feature: Git Workshop Faciliator Script
 
   Scenario: Revealing git log is reverse traversal of the graph
     Given I have an empty repository
-    When a series of commits are made with messages
+    When a series of commits is made with messages
       | message |
       | great   |
       | is      |
@@ -31,7 +31,7 @@ Feature: Git Workshop Faciliator Script
       | ^[0-9a-f]{7} | great   |
 
   Scenario: Examining git log in a detached HEAD state
-   Given a series of commits are made with messages
+   Given a series of commits is made with messages
       | message |
       | great   |
       | is      |

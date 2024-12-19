@@ -1,14 +1,14 @@
 import tempfile
 import subprocess
-import os
 import re
-from behave import *
-from git_repo import GitRepo
+from behave import given, when, then
+from git_repo import TempGitRepo
+from command_runner import CommandRunner
 
 
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
-    context.repo = GitRepo(dirpath=tempfile.mkdtemp())
+    context.repo = TempGitRepo(dirpath=tempfile.mkdtemp())
     result = subprocess.run(['ls', '.git'], cwd=context.repo.dirpath)
     assert result.returncode != 0
 
@@ -44,16 +44,17 @@ def step_impl(context):
     ''')
 
 
-@when(u'a series of commits are made with messages')
+@when(u'a series of commits is made with messages')
 def step_impl(context):
     for row in context.table:
         message = row['message']
-        context.repo.add_file_and_commit(message, message)
+        context.repo.add_test_commit_with_message(message)
 
    
 @then(u'running "git log --oneline" prints out')
 def step_impl(context):
-    log_output = context.repo.capture_output_from_commands(['git', 'log', '--oneline'])
+    command_runner = CommandRunner(context.repo.dirpath)
+    log_output = command_runner.capture_output_from_commands(['git', 'log', '--oneline'])
     commit_messages = log_output.split('\n')
     sha_pattern = r'[0-9a-f]{7}'
 

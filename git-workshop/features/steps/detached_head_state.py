@@ -1,28 +1,20 @@
 import tempfile
-import subprocess
-from behave import *
-from git_repo import GitRepo
+from behave import given, when, then
+from git_repo import TempGitRepo
+from command_runner import CommandRunner
 
-@given(u'a series of commits are made with messages')
+
+
+@given(u'a series of commits is made with messages')
 def step_impl(context):
-    # context.execute_steps(u'''
-    #     Given I have a directory that is not a git repository
-    #     When I run git init in the directory
-    #     When a series of commits are made with messages
-    #         | message |
-    #         | great   |
-    #         | is      |
-    #         | git     |
-    #         | think   |
-    #         | I       |
-    # ''')
-    context.repo = GitRepo(dirpath=tempfile.mkdtemp())
+    context.repo = TempGitRepo(dirpath=tempfile.mkdtemp())
+    context.command_runner = CommandRunner(context.repo.dirpath)
     context.repo.init_with_commits(['great', 'is', 'git', 'think', 'I'])
 
 
 @when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
-    context.sha = context.repo.capture_output_from_commands(['git', 'rev-parse', 'HEAD^^'])
+    context.sha = context.command_runner.capture_output_from_commands(['git', 'rev-parse', 'HEAD^^'])
     context.repo.checkout_quiet(context.sha)
 
 

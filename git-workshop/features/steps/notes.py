@@ -1,7 +1,6 @@
 from behave import *
 import tempfile
 import subprocess
-import os
 
 @given(u'there was a commit with a commit message that is "foo"')
 def step_impl(context):
