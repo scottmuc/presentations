@@ -20,6 +20,6 @@ def step_impl(context):
 
 @then(u'git is in a detached HEAD state')
 def step_impl(context):
-    head_content = context.repo.get_head()
+    head_content = context.repo.read_head()
     assert head_content == context.sha
     assert not head_content.startswith('ref: ')

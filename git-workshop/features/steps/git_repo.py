@@ -27,6 +27,6 @@ class TempGitRepo:
     def checkout_quiet(self, ref):
         self.command_runner.run(['git', 'checkout', '-q', ref])
     
-    def get_head(self):
+    def read_head(self):
         return self.command_runner.capture_output_from_commands(['cat', '.git/HEAD'])
     

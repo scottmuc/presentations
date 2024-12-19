@@ -26,7 +26,7 @@ def step_impl(context):
 
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
 def step_impl(context):
-    head_content = context.repo.get_head()
+    head_content = context.repo.read_head()
     assert head_content == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{head_content}'"
 
 
