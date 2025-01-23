@@ -14,7 +14,7 @@ def step_impl(context):
 
 @when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
-    context.sha = context.cmd.capture_output_from_commands(context.repo.dirpath, ['git', 'rev-parse', 'HEAD^^'])
+    context.sha = context.cmd.capture_output_from_command(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
     context.repo.checkout_quiet(context.sha)
 
 
