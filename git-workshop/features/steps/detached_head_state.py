@@ -1,13 +1,11 @@
-import tempfile
-from behave import given, when, then
-from git_repo import TempGitRepo
+from behave import given, then, when
 from command_runner import CommandRunner
-
+from git_repo import TempGitRepo
 
 
 @given(u'a series of commits is made with messages')
 def step_impl(context):
-    context.repo = TempGitRepo(dirpath=tempfile.mkdtemp())
+    context.repo = TempGitRepo()
     context.cmd = CommandRunner()
     context.repo.init_with_commits(['great', 'is', 'git', 'think', 'I'])
 

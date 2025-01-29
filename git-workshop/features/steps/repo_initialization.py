@@ -1,6 +1,4 @@
 import re
-import subprocess
-import tempfile
 
 from behave import given, then, when
 from command_runner import CommandRunner
@@ -9,7 +7,7 @@ from git_repo import TempGitRepo
 
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
-    context.repo = TempGitRepo(dirpath=tempfile.mkdtemp())
+    context.repo = TempGitRepo()
     context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'ls', '.git')
     assert context.repo.cmd.returncode != 0
 

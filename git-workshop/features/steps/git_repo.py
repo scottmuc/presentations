@@ -4,11 +4,8 @@ from command_runner import CommandRunner
 
 
 class TempGitRepo:
-    def __init__(self, dirpath=None, initial_branch="main"):
-        if dirpath is None:
-            self.dirpath = tempfile.mkdtemp()
-        else:
-            self.dirpath = dirpath
+    def __init__(self, initial_branch="main"):
+        self.dirpath = tempfile.mkdtemp()
         self.initial_branch = initial_branch
         self.cmd = CommandRunner()
 
