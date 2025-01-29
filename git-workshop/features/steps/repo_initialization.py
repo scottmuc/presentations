@@ -1,16 +1,17 @@
-import tempfile
-import subprocess
 import re
-from behave import given, when, then
-from git_repo import TempGitRepo
+import subprocess
+import tempfile
+
+from behave import given, then, when
 from command_runner import CommandRunner
+from git_repo import TempGitRepo
 
 
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
     context.repo = TempGitRepo(dirpath=tempfile.mkdtemp())
-    result = subprocess.run(['ls', '.git'], cwd=context.repo.dirpath)
-    assert result.returncode != 0
+    context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'ls', '.git')
+    assert context.repo.cmd.returncode != 0
 
 
 @when(u'I run git init in the directory')
@@ -20,8 +21,8 @@ def step_impl(context):
 
 @then(u'a .git directory exists')
 def step_impl(context):
-    result = subprocess.run(['ls', '.git'], cwd=context.repo.dirpath)
-    assert result.returncode == 0
+    context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'ls', '.git')
+    assert context.repo.cmd.returncode == 0
 
 
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
@@ -32,8 +33,8 @@ def step_impl(context):
 
 @then(u'.git/refs/heads/main doesn\'t exist')
 def step_impl(context):
-    result = subprocess.run(['ls', '.git/refs/heads/main'], cwd=context.repo.dirpath)
-    assert result.returncode != 0
+    context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'ls', '.git/refs/heads/main')
+    assert context.repo.cmd.returncode != 0
 
 
 @given(u'I have an empty repository')
