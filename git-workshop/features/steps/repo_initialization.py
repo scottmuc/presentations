@@ -43,10 +43,10 @@ def step_impl(context):
     ''')
 
 
-@when(u'a series of commits is made with messages')
-def step_impl(context):
-    for row in context.table:
-        message = row['message']
+@when(u'a series of commits is made with messages {messages}')
+def step_impl(context, messages):
+    message_list = [msg. strip() for msg in messages.split(',')]
+    for message in message_list:
         context.repo.add_test_commit_with_message(message)
 
    

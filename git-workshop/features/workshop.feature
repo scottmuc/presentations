@@ -8,20 +8,9 @@ Feature: Git Workshop Faciliator Script
     And .git/HEAD contains the text "ref: refs/heads/main"
     And .git/refs/heads/main doesn't exist
 
-  # Scenario: commit something
-  #   Given there was a commit with a commit message that is "foo"
-  #   When we run the log
-  #   Then the log shows an entry with the message that is "foo"
-
   Scenario: Revealing git log is reverse traversal of the graph
     Given I have an empty repository
-    When a series of commits is made with messages
-      | message |
-      | great   |
-      | is      |
-      | git     |
-      | think   |
-      | I       |
+    When a series of commits is made with messages great, is, git, think, I
     Then running "git log --oneline" prints out
       | sha          | message |
       | ^[0-9a-f]{7} | I       |
@@ -30,16 +19,10 @@ Feature: Git Workshop Faciliator Script
       | ^[0-9a-f]{7} | is      |
       | ^[0-9a-f]{7} | great   |
 
-  Scenario: Examining git log in a detached HEAD state
-   Given a series of commits is made with messages
-      | message |
-      | great   |
-      | is      |
-      | git     |
-      | think   |
-      | I       |
-    When I checkout the commit with the message 'git' using its SHA
-    Then git is in a detached HEAD state
+  # Scenario: Examining git log in a detached HEAD state
+  #  Given a series of commits is made with messages great, is, git, think, I
+  #   When I checkout the commit with the message 'git' using its SHA
+  #   Then git is in a detached HEAD state
 
 
   # Scenario: Re-attach a commit to a branch from a detached HEAD state
