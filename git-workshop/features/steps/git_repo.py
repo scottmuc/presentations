@@ -19,7 +19,8 @@ class TempGitRepo:
         
     def init_with_commits(self, messages):
         self.init()
-        for message in messages:
+        message_list = [msg. strip() for msg in messages.split(',')]
+        for message in message_list:
             self.add_test_commit_with_message(message)
 
     def checkout_quiet(self, ref):

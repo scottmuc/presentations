@@ -7,19 +7,20 @@ from git_repo import TempGitRepo
 def step_impl(context, messages):
     context.repo = TempGitRepo()
     context.cmd = CommandRunner()
-    context.repo.init_with_commits([messages])
+    context.repo.init_with_commits(messages)
 
 
 @when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
     context.sha = context.cmd.capture_output_from_command(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
     context.repo.checkout_quiet(context.sha)
+    assert context.cmd.returncode == 0, f"Expected {context.cmd.returncode} to be 0"
 
 
 @then(u'git is in a detached HEAD state')
 def step_impl(context):
     head_content = context.repo.read_head()
-    assert head_content == context.sha
+    assert head_content == context.sha, f"Expected {head_content} to be equal to {context.sha}"
     assert not head_content.startswith('ref: ')
 
 

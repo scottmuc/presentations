@@ -19,10 +19,10 @@ Feature: Git Workshop Faciliator Script
       | ^[0-9a-f]{7} | is      |
       | ^[0-9a-f]{7} | great   |
 
-  # Scenario: Examining git log in a detached HEAD state
-  #  Given a series of commits is made with messages great, is, git, think, I
-  #   When I checkout the commit with the message 'git' using its SHA
-  #   Then git is in a detached HEAD state
+  Scenario: Examining git log in a detached HEAD state
+   Given a series of commits is made with messages great, is, git, think, I
+    When I checkout the commit with the message 'git' using its SHA
+    Then git is in a detached HEAD state
 
 
   # Scenario: Re-attach a commit to a branch from a detached HEAD state
