@@ -29,15 +29,18 @@ def step_impl(context):
     context.execute_steps(u'''
         Given I have a directory that is not a git repository
         When I run git init in the directory
-        And a series of commits is made with messages
+        And a series of commits is made with messages great, is, git, think, I
     ''')
 
 
-@when(u'creating a branch from the commit HEAD is pointing to')
+@when(u'checking out the main branch')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When creating a branch from the commit HEAD is pointing to')
+    context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'git', 'checkout', 'main')
+    assert context.repo.cmd.returncode == 0
 
 
-@then(u'HEAD is reattached to the branch')
+@then(u'HEAD points back to the main branch')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then HEAD is reattached to the branch')
+    context.execute_steps(u'''
+        Then .git/HEAD contains the text "ref: refs/heads/main"
+    ''')
