@@ -12,9 +12,10 @@ def step_impl(context, messages):
 
 @when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
-    context.sha = context.cmd.capture_output_from_command(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
+    result = context.cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
+    context.sha = result["output"]
     context.repo.checkout_quiet(context.sha)
-    assert context.cmd.returncode == 0, f"Expected {context.cmd.returncode} to be 0"
+    assert result["exitcode"] == 0, f"Expected {result['exitcode']} to be 0"
 
 
 @then(u'git is in a detached HEAD state')
@@ -35,8 +36,8 @@ def step_impl(context):
 
 @when(u'checking out the main branch')
 def step_impl(context):
-    context.repo.cmd.capture_output_from_command(context.repo.dirpath, 'git', 'checkout', 'main')
-    assert context.repo.cmd.returncode == 0
+    result = context.repo.cmd.run(context.repo.dirpath, 'git', 'checkout', 'main')
+    assert result["exitcode"] == 0
 
 
 @then(u'HEAD points back to the main branch')

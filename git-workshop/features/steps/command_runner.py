@@ -2,12 +2,13 @@ import subprocess
 
 
 class CommandRunner:
-    def capture_output_from_command(self, dirpath, command, *args) -> str:
-        self.subprocess = subprocess.Popen([command, *args], cwd=dirpath, stdout=subprocess.PIPE, text=True)
-        self.subprocess.wait()
+    def run(self, dirpath, command, *args) -> str:
+        process = subprocess.Popen([command, *args], cwd=dirpath, stdout=subprocess.PIPE, text=True)
+        process.wait()
 
-        stdout, stderr = self.subprocess.communicate()
-        self.output = stdout.strip()
-        self.returncode = self.subprocess.returncode
+        stdout, stderr = process.communicate()
+        output = stdout.strip()
+        returncode = process.returncode
 
-        return self.output
+        return {"output": output, "exitcode": returncode }
+
