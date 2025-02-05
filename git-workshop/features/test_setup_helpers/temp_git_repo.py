@@ -4,13 +4,12 @@ from test_setup_helpers.command_runner import CommandRunner
 
 
 class TempGitRepo:
-    def __init__(self, initial_branch="main"):
+    def __init__(self):
         self.dirpath = tempfile.mkdtemp()
-        self.initial_branch = initial_branch
 
     def init(self):
         cmd = CommandRunner()
-        cmd.run(self.dirpath, 'git', 'init')
+        cmd.run(self.dirpath, 'git', 'init', '--initial-branch=main')
 
     def add_test_commit_with_message(self, message):
         cmd = CommandRunner()
