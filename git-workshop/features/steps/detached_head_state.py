@@ -1,6 +1,6 @@
 from behave import given, then, when
-from command_runner import CommandRunner
-from git_repo import TempGitRepo
+from test_setup_helpers.command_runner import CommandRunner
+from test_setup_helpers.temp_git_repo import TempGitRepo
 
 
 @given(u'a series of commits is made with messages {messages}')
