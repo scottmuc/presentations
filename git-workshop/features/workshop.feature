@@ -30,3 +30,9 @@ Feature: Git Workshop Faciliator Script
     Given HEAD is in a detached state
       When checking out the main branch
       Then HEAD points back to the main branch
+
+
+ Scenario: Creating a branch
+    Given a series of commits is made with messages great, is, git, think, I
+      When creating a branch named branch_2
+      Then branch main and branch_2 both point to the same commit
