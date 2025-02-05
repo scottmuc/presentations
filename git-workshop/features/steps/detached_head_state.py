@@ -6,13 +6,13 @@ from git_repo import TempGitRepo
 @given(u'a series of commits is made with messages {messages}')
 def step_impl(context, messages):
     context.repo = TempGitRepo()
-    context.cmd = CommandRunner()
     context.repo.init_with_commits(messages)
 
 
 @when(u'I checkout the commit with the message \'git\' using its SHA')
 def step_impl(context):
-    result = context.cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
     context.sha = result.output
     context.repo.checkout_quiet(context.sha)
     assert result.exitcode == 0, f"Expected {result['exitcode']} to be 0"
@@ -36,7 +36,8 @@ def step_impl(context):
 
 @when(u'checking out the main branch')
 def step_impl(context):
-    result = context.repo.cmd.run(context.repo.dirpath, 'git', 'checkout', 'main')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'git', 'checkout', 'main')
     assert result.exitcode == 0
 
 

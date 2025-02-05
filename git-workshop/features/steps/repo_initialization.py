@@ -8,7 +8,8 @@ from git_repo import TempGitRepo
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
     context.repo = TempGitRepo()
-    result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'ls', '.git')
     assert result.exitcode != 0
 
 
@@ -19,7 +20,8 @@ def step_impl(context):
 
 @then(u'a .git directory exists')
 def step_impl(context):
-    result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'ls', '.git')
     assert result.exitcode == 0
 
 
@@ -31,7 +33,8 @@ def step_impl(context):
 
 @then(u'.git/refs/heads/main doesn\'t exist')
 def step_impl(context):
-    result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git/refs/heads/main')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'ls', '.git/refs/heads/main')
     assert result.exitcode != 0
 
 

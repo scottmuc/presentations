@@ -7,15 +7,16 @@ class TempGitRepo:
     def __init__(self, initial_branch="main"):
         self.dirpath = tempfile.mkdtemp()
         self.initial_branch = initial_branch
-        self.cmd = CommandRunner()
 
     def init(self):
-        self.cmd.run(self.dirpath, 'git', 'init')
+        cmd = CommandRunner()
+        cmd.run(self.dirpath, 'git', 'init')
 
     def add_test_commit_with_message(self, message):
-        self.cmd.run(self.dirpath, 'touch', message)
-        self.cmd.run(self.dirpath, 'git', 'add', message)
-        self.cmd.run(self.dirpath, 'git', 'commit', '-m', message)
+        cmd = CommandRunner()
+        cmd.run(self.dirpath, 'touch', message)
+        cmd.run(self.dirpath, 'git', 'add', message)
+        cmd.run(self.dirpath, 'git', 'commit', '-m', message)
         
     def init_with_commits(self, messages):
         self.init()
@@ -24,8 +25,10 @@ class TempGitRepo:
             self.add_test_commit_with_message(message)
 
     def checkout_quiet(self, ref):
-        self.cmd.run(self.dirpath, 'git', 'checkout', '-q', ref)
+        cmd = CommandRunner()
+        cmd.run(self.dirpath, 'git', 'checkout', '-q', ref)
     
     def read_head(self):
-            return self.cmd.run(self.dirpath, 'cat', '.git/HEAD').output
+        cmd = CommandRunner()
+        return cmd.run(self.dirpath, 'cat', '.git/HEAD').output
     
