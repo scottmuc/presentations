@@ -9,7 +9,7 @@ from git_repo import TempGitRepo
 def step_impl(context):
     context.repo = TempGitRepo()
     result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git')
-    assert result["exitcode"] != 0
+    assert result.exitcode != 0
 
 
 @when(u'I run git init in the directory')
@@ -20,7 +20,7 @@ def step_impl(context):
 @then(u'a .git directory exists')
 def step_impl(context):
     result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git')
-    assert result["exitcode"] == 0
+    assert result.exitcode == 0
 
 
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
@@ -32,7 +32,7 @@ def step_impl(context):
 @then(u'.git/refs/heads/main doesn\'t exist')
 def step_impl(context):
     result = context.repo.cmd.run(context.repo.dirpath, 'ls', '.git/refs/heads/main')
-    assert result["exitcode"] != 0
+    assert result.exitcode != 0
 
 
 @given(u'I have an empty repository')
@@ -53,7 +53,7 @@ def step_impl(context, messages):
 @then(u'running "git log --oneline" prints out')
 def step_impl(context):
     cmd = CommandRunner()
-    log_output = cmd.run(context.repo.dirpath,'git', 'log', '--oneline')["output"]
+    log_output = cmd.run(context.repo.dirpath,'git', 'log', '--oneline').output
     commit_messages = log_output.split('\n')
     sha_pattern = r'[0-9a-f]{7}'
 

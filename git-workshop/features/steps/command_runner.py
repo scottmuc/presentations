@@ -8,7 +8,12 @@ class CommandRunner:
 
         stdout, stderr = process.communicate()
         output = stdout.strip()
-        returncode = process.returncode
+        exitcode = process.returncode
 
-        return {"output": output, "exitcode": returncode }
+        return Result(output, exitcode)
 
+
+class Result: 
+    def __init__(self, output, exitcode):
+        self.output = output
+        self.exitcode = exitcode

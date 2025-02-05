@@ -27,5 +27,5 @@ class TempGitRepo:
         self.cmd.run(self.dirpath, 'git', 'checkout', '-q', ref)
     
     def read_head(self):
-            return self.cmd.run(self.dirpath, 'cat', '.git/HEAD')["output"]
+            return self.cmd.run(self.dirpath, 'cat', '.git/HEAD').output
     
