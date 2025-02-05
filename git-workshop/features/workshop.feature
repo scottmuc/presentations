@@ -36,3 +36,4 @@ Feature: Git Workshop Faciliator Script
     Given a series of commits is made with messages great, is, git, think, I
       When creating a branch named branch_2
       Then branch main and branch_2 both point to the same commit
+      And HEAD points back to the main branch
