@@ -8,6 +8,12 @@ Feature: Git Workshop Faciliator Script
       And .git/HEAD contains the text "ref: refs/heads/main"
       And .git/refs/heads/main doesn't exist
 
+  # Scenario: The first commit
+  #   Given I have an empty repository
+  #     When I commit something
+  #     Then the contents of .git/refs/heads/main contains is SHA
+  #     And the parrent commit of HEAD does not exist
+
   Scenario: Revealing git log is reverse traversal of the graph
     Given I have an empty repository
       When a series of commits is made with messages great, is, git, think, I
@@ -24,6 +30,11 @@ Feature: Git Workshop Faciliator Script
     Given a series of commits is made with messages great, is, git, think, I
       When I checkout the commit with the message 'git' using its SHA
       Then git is in a detached HEAD state
+      And running "git log --oneline" prints out
+        | sha          | message |
+        | ^[0-9a-f]{7} | git     | HEAD
+        | ^[0-9a-f]{7} | is      |
+        | ^[0-9a-f]{7} | great   |
 
 
   Scenario: Re-attach a commit to a branch from a detached HEAD state
