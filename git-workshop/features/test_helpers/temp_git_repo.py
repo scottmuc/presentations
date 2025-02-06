@@ -1,6 +1,6 @@
 import tempfile
 
-from test_setup_helpers.command_runner import CommandRunner
+from test_helpers.command_runner import CommandRunner
 
 
 class TempGitRepo:

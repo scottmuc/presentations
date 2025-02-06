@@ -1,5 +1,5 @@
 from behave import then, when
-from test_setup_helpers.command_runner import CommandRunner
+from test_helpers.command_runner import CommandRunner
 
 
 @when(u'creating a branch named {branch_name}')

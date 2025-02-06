@@ -1,8 +1,8 @@
 import re
 
 from behave import given, then, when
-from test_setup_helpers.command_runner import CommandRunner
-from test_setup_helpers.temp_git_repo import TempGitRepo
+from test_helpers.command_runner import CommandRunner
+from test_helpers.temp_git_repo import TempGitRepo
 
 
 @given(u'I have a directory that is not a git repository')
