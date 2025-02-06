@@ -32,7 +32,7 @@ Feature: Git Workshop Faciliator Script
       Then git is in a detached HEAD state
       And running "git log --oneline" prints out
         | sha          | message |
-        | ^[0-9a-f]{7} | git     | HEAD
+        | ^[0-9a-f]{7} | git     |
         | ^[0-9a-f]{7} | is      |
         | ^[0-9a-f]{7} | great   |
 
