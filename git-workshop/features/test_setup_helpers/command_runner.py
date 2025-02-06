@@ -10,10 +10,10 @@ class CommandRunner:
         output = stdout.strip()
         exitcode = process.returncode
 
-        return Result(output, exitcode)
+        return CommandResult(output, exitcode)
 
 
-class Result: 
+class CommandResult:
     def __init__(self, output, exitcode):
         self.output = output
         self.exitcode = exitcode
