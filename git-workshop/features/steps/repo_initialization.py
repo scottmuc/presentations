@@ -63,3 +63,16 @@ def step_impl(context):
     for i, row in enumerate(context.table):
         message = f"{sha_pattern} {row['message']}"
         assert re.match(message, commit_messages[i]), f"Expected commit message: {message}, but got: {commit_messages[i]}"
+
+
+
+@then(u'the contents of .git/refs/heads/main contains a SHA')
+def step_impl(context):
+    cmd = CommandRunner()
+    sha = cmd.run(context.repo.dirpath, 'cat', ".git/refs/heads/main").output
+    assert sha != ''
+
+
+@then(u'the parent commit of HEAD does not exist')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then the parent commit of HEAD does not exist')

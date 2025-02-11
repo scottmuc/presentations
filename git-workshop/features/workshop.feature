@@ -8,11 +8,13 @@ Feature: Git Workshop Faciliator Script
       And .git/HEAD contains the text "ref: refs/heads/main"
       And .git/refs/heads/main doesn't exist
 
-  # Scenario: The first commit
-  #   Given I have an empty repository
-  #     When I commit something
-  #     Then the contents of .git/refs/heads/main contains is SHA
-  #     And the parrent commit of HEAD does not exist
+
+  Scenario: The first commit
+    Given I have an empty repository
+      When a series of commits is made with messages great
+      Then the contents of .git/refs/heads/main contains a SHA
+      And the parent commit of HEAD does not exist
+
 
   Scenario: Revealing git log is reverse traversal of the graph
     Given I have an empty repository
