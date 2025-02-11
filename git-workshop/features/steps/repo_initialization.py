@@ -65,7 +65,6 @@ def step_impl(context):
         assert re.match(message, commit_messages[i]), f"Expected commit message: {message}, but got: {commit_messages[i]}"
 
 
-
 @then(u'the contents of .git/refs/heads/main contains a SHA')
 def step_impl(context):
     cmd = CommandRunner()
