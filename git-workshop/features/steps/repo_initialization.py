@@ -68,10 +68,14 @@ def step_impl(context):
 @then(u'the contents of .git/refs/heads/main contains a SHA')
 def step_impl(context):
     cmd = CommandRunner()
-    sha = cmd.run(context.repo.dirpath, 'cat', ".git/refs/heads/main").output
-    assert sha != ''
+    result = cmd.run(context.repo.dirpath, 'cat', ".git/refs/heads/main")
+    context.sha = result.output
+    assert context.sha != ''
 
 
 @then(u'the parent commit of HEAD does not exist')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then the parent commit of HEAD does not exist')
+    cmd = CommandRunner()
+    result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD')
+    root_sha = result.output
+    assert root_sha == context.sha
