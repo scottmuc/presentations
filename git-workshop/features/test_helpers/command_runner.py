@@ -7,6 +7,7 @@ class CommandRunner:
                 [command, *args],
                 cwd=dirpath,
                 stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 text=True
         )
 
