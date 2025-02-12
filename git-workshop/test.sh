@@ -21,7 +21,7 @@ style_check() {
 }
 
 run_tests() {
-    behave
+    behave --no-source --no-timings --no-summary
 }
 
 install_dependencies() {
