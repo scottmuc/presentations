@@ -83,4 +83,5 @@ def step_impl(context):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD')
     root_sha = result.output
+    # TODO: Review this assertion
     assert root_sha == context.sha
