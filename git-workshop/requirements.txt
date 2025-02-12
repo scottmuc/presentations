@@ -1,4 +1,5 @@
 behave==1.2.6
 parse==1.20.2
 parse_type==0.6.3
+pycodestyle==2.12.1
 six==1.16.0

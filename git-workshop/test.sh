@@ -12,7 +12,12 @@ main() {
     setup_virtualenv
     activate_virtualenv
     install_dependencies
+    style_check
     run_tests
+}
+
+style_check() {
+    find features/ -name "*.py" -exec pycodestyle --show-pep8 {} +
 }
 
 run_tests() {
