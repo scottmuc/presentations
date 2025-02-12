@@ -46,7 +46,7 @@ def step_impl(context):
     ''')
 
 
-@when(u'a series of commits is made with messages {messages}')
+@when(u'a series of commits is made with messages: {messages}')
 def step_impl(context, messages):
     message_list = [msg. strip() for msg in messages.split(',')]
     for message in message_list:

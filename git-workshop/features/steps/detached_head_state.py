@@ -3,7 +3,7 @@ from test_helpers.command_runner import CommandRunner
 from test_helpers.temp_git_repo import TempGitRepo
 
 
-@given(u'a series of commits is made with messages {messages}')
+@given(u'a series of commits is made with messages: {messages}')
 def step_impl(context, messages):
     context.repo = TempGitRepo()
     context.repo.init_with_commits(messages)
@@ -30,7 +30,7 @@ def step_impl(context):
     context.execute_steps(u'''
         Given I have a directory that is not a git repository
         When I run git init in the directory
-        And a series of commits is made with messages great, is, git, think, I
+        And a series of commits is made with messages: great, is, git, think, I
     ''')
 
 
