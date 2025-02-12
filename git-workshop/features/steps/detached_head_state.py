@@ -34,14 +34,14 @@ def step_impl(context):
     ''')
 
 
-@when(u'checking out the main branch')
+@when(u'checking out the branch main')
 def step_impl(context):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'git', 'checkout', 'main')
     assert result.exitcode == 0
 
 
-@then(u'HEAD points back to the main branch')
+@then(u'HEAD points back to the branch main')
 def step_impl(context):
     context.execute_steps(u'''
         Then .git/HEAD contains the text "ref: refs/heads/main"
