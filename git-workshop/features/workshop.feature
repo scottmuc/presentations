@@ -49,10 +49,11 @@ Feature: Git Workshop Faciliator Script
     Given a series of commits is made with messages: great, is, git, think, I
       When creating a branch named branch_2
       Then branch main and branch_2 both point to the same commit
-      And HEAD points back to the branch main
+      And HEAD still points to the branch main
 
 
  Scenario: Reset a branch
     Given a series of commits is made with messages: great, is, git, think, I
       When resetting the branch main to HEAD^^
       Then branch main points to the commit with message think
+      And HEAD still points to the branch main

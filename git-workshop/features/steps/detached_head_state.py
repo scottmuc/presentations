@@ -47,3 +47,10 @@ def step_impl(context):
     context.execute_steps(u'''
         Then .git/HEAD contains the text "ref: refs/heads/main"
     ''')
+
+
+@then(u'HEAD still points to the branch main')
+def step_impl(context):
+    context.execute_steps(u'''
+        Then .git/HEAD contains the text "ref: refs/heads/main"
+    ''')
