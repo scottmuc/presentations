@@ -12,6 +12,7 @@ def step_impl(context, branch_name):
 @then(u'branch {branch_1} and {branch_2} both point to the same commit')
 def step_impl(context, branch_1, branch_2):
     cmd = CommandRunner()
-    head_1 = cmd.run(context.repo.dirpath, 'cat', f".git/refs/heads/{branch_1}").output
-    head_2 = cmd.run(context.repo.dirpath, 'cat', f".git/refs/heads/{branch_2}").output
+    repo_dir = context.repo.dirpath
+    head_1 = cmd.run(repo_dir, 'cat', f".git/refs/heads/{branch_1}").output
+    head_2 = cmd.run(repo_dir, 'cat', f".git/refs/heads/{branch_2}").output
     assert head_1 == head_2

@@ -16,7 +16,7 @@ class TempGitRepo:
         cmd.run(self.dirpath, 'touch', message)
         cmd.run(self.dirpath, 'git', 'add', message)
         cmd.run(self.dirpath, 'git', 'commit', '-m', message)
-        
+
     def init_with_commits(self, messages):
         self.init()
         message_list = [msg. strip() for msg in messages.split(',')]
@@ -26,8 +26,7 @@ class TempGitRepo:
     def checkout_quiet(self, ref):
         cmd = CommandRunner()
         cmd.run(self.dirpath, 'git', 'checkout', '-q', ref)
-    
+
     def read_head(self):
         cmd = CommandRunner()
         return cmd.run(self.dirpath, 'cat', '.git/HEAD').output
-    

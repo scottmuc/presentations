@@ -21,7 +21,8 @@ def step_impl(context):
 @then(u'git is in a detached HEAD state')
 def step_impl(context):
     head_content = context.repo.read_head()
-    assert head_content == context.sha, f"Expected {head_content} to be equal to {context.sha}"
+    errmsg = f"Expected {head_content} to be equal to {context.sha}"
+    assert head_content == context.sha, errmsg
     assert not head_content.startswith('ref: ')
 
 

@@ -28,7 +28,8 @@ def step_impl(context):
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
 def step_impl(context):
     head_content = context.repo.read_head()
-    assert head_content == "ref: refs/heads/main", f"Expected 'ref: refs/heads/main', but got '{head_content}'"
+    errmsg = f"Expected 'ref: refs/heads/main', but got '{head_content}'"
+    assert head_content == "ref: refs/heads/main", errmsg
 
 
 @then(u'.git/refs/heads/main doesn\'t exist')
@@ -52,17 +53,21 @@ def step_impl(context, messages):
     for message in message_list:
         context.repo.add_test_commit_with_message(message)
 
-   
+
 @then(u'running "git log --oneline" prints out')
 def step_impl(context):
     cmd = CommandRunner()
-    log_output = cmd.run(context.repo.dirpath,'git', 'log', '--oneline').output
+    log_output = cmd.run(context.repo.dirpath,
+                         'git', 'log', '--oneline').output
     commit_messages = log_output.split('\n')
     sha_pattern = r'[0-9a-f]{7}'
 
     for i, row in enumerate(context.table):
         message = f"{sha_pattern} {row['message']}"
-        assert re.match(message, commit_messages[i]), f"Expected commit message: {message}, but got: {commit_messages[i]}"
+        errmsg = f'''
+            Expected commit message: {message}
+            But got: {commit_messages[i]}'''
+        assert re.match(message, commit_messages[i]), errmsg
 
 
 @then(u'the contents of .git/refs/heads/main contains a SHA')
@@ -79,4 +84,3 @@ def step_impl(context):
     result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD')
     root_sha = result.output
     assert root_sha == context.sha
-    
