@@ -45,15 +45,40 @@ Feature: Git Workshop Faciliator Script
       Then HEAD points back to the branch main
 
 
- Scenario: Creating a branch
-    Given a series of commits is made with messages: great, is, git, think, I
-      When creating a branch named branch_2
-      Then branch main and branch_2 both point to the same commit
-      And HEAD still points to the branch main
+  Scenario: Creating a branch
+      Given a series of commits is made with messages: great, is, git, think, I
+        When creating a branch named branch_2
+        Then branch main and branch_2 both point to the same commit
+        And HEAD still points to the branch main
 
 
- Scenario: Reset a branch
-    Given a series of commits is made with messages: great, is, git, think, I
-      When resetting the branch main to HEAD^^
-      Then branch main points to the commit with message think
-      And HEAD still points to the branch main
+  Scenario: Reset a branch
+      Given a series of commits is made with messages: great, is, git, think, I
+        When resetting the branch main to HEAD^^
+        Then branch main points to the commit with message think
+        And HEAD still points to the branch main
+
+
+  # Scenario: Rebase a branch 
+  #   Given a series of commits is made with messages: great, is, git, think, I
+  #   When I create a branch banana
+  #   And I checkout banana
+  #   And I reset to HEAD^
+  #   And a series of commits is made with messages: do not
+  #   And running "git log --oneline" prints out
+  #   | sha          | message  |
+  #   | ^[0-9a-f]{7} | do not   |
+  #   | ^[0-9a-f]{7} | think    |
+  #   | ^[0-9a-f]{7} | git      |
+  #   | ^[0-9a-f]{7} | is       |
+  #   | ^[0-9a-f]{7} | great    |
+  #   And git rebase main banana
+  #   And running "git log --oneline" prints out
+  #   | sha          | message  |
+  #   | ^[0-9a-f]{7} | I        |
+  #   | ^[0-9a-f]{7} | do not   |
+  #   | ^[0-9a-f]{7} | think    |
+  #   | ^[0-9a-f]{7} | git      |
+  #   | ^[0-9a-f]{7} | is       |
+  #   | ^[0-9a-f]{7} | great    |
+  #   And HEAD will still be on banana
