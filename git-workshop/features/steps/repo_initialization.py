@@ -74,14 +74,13 @@ def step_impl(context):
 def step_impl(context):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'cat', ".git/refs/heads/main")
-    context.sha = result.output
-    assert context.sha != ''
+    assert result.output != ''
 
 
 @then(u'the parent commit of HEAD does not exist')
 def step_impl(context):
     cmd = CommandRunner()
-    result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD')
-    root_sha = result.output
-    # TODO: Review this assertion
-    assert root_sha == context.sha
+    result = cmd.run(context.repo.dirpath, 'git', 'cat-file', 'commit', 'HEAD')
+    contains_parent = 'parent' in result.output
+    errmsg = f"Expected no parent in the following output: {result.output}"
+    assert contains_parent is False, errmsg
