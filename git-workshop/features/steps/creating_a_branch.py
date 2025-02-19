@@ -2,14 +2,15 @@ from behave import then, when
 from test_helpers.command_runner import CommandRunner
 
 
-@when(u'creating a branch named {branch_name}')
+@when(u'a branch {branch_name} is created')
 def step_impl(context, branch_name):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'git', 'branch', branch_name)
     assert result.exitcode == 0
 
 
-@then(u'branch {branch_1} and {branch_2} both point to the same commit')
+@then(u"branch {branch_1} and branch {branch_2} "
+      "both point to the same commit")
 def step_impl(context, branch_1, branch_2):
     cmd = CommandRunner()
     repo_dir = context.repo.dirpath

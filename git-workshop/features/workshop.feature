@@ -47,8 +47,8 @@ Feature: Git Workshop Faciliator Script
 
   Scenario: Creating a branch
       Given a series of commits is made with messages: great, is, git, think, I
-        When creating a branch named branch_2
-        Then branch main and branch_2 both point to the same commit
+        When a branch branch_2 is created
+        Then branch main and branch branch_2 both point to the same commit
         And HEAD still points to the branch main
 
 
@@ -61,9 +61,9 @@ Feature: Git Workshop Faciliator Script
 
   # Scenario: Rebase a branch 
   #   Given a series of commits is made with messages: great, is, git, think, I
-  #   When I create a branch banana
-  #   And I checkout banana
-  #   And I reset to HEAD^
+  #   When a branch banana is created
+  #   And the branch banana is checked out
+  #   And a reset to HEAD^ is done
   #   And a series of commits is made with messages: do not
   #   And running "git log --oneline" prints out
   #   | sha          | message  |
@@ -72,8 +72,8 @@ Feature: Git Workshop Faciliator Script
   #   | ^[0-9a-f]{7} | git      |
   #   | ^[0-9a-f]{7} | is       |
   #   | ^[0-9a-f]{7} | great    |
-  #   And git rebase main banana
-  #   And running "git log --oneline" prints out
+  #   And a rebase of "banana" onto "main" is completed
+  #   Then running "git log --oneline" prints out
   #   | sha          | message  |
   #   | ^[0-9a-f]{7} | I        |
   #   | ^[0-9a-f]{7} | do not   |
