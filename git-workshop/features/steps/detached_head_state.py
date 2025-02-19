@@ -35,7 +35,7 @@ def step_impl(context):
     ''')
 
 
-@when(u'the {branch_name} is checked out')
+@when(u'the branch {branch_name} is checked out')
 def step_impl(context, branch_name):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'git', 'checkout', branch_name)
@@ -49,8 +49,8 @@ def step_impl(context):
     ''')
 
 
-@then(u'HEAD still points to the branch main')
-def step_impl(context):
-    context.execute_steps(u'''
-        Then .git/HEAD contains the text "ref: refs/heads/main"
+@then(u'HEAD still points to the branch {branch_name}')
+def step_impl(context, branch_name):
+    context.execute_steps(f'''
+        Then .git/HEAD contains the text "ref: refs/heads/{branch_name}"
     ''')

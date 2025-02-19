@@ -2,10 +2,12 @@ from behave import then, when
 from test_helpers.command_runner import CommandRunner
 
 
-@when(u'resetting the branch main to HEAD^^')
-def step_impl(context):
+@when(u'resetting to {commit}')
+def step_impl(context, commit):
     cmd = CommandRunner()
-    result = cmd.run(context.repo.dirpath, 'git', 'reset', '--hard', 'HEAD^^')
+    result = cmd.run(
+        context.repo.dirpath, 'git', 'reset', '--hard', commit
+        )
     assert result.exitcode == 0
 
 
@@ -21,3 +23,10 @@ def step_impl(context):
     head = result_head.output
 
     assert head == sha, f"Expected {head} to equal {sha}"
+
+
+@when(u'running "git log --oneline" prints out')
+def step_impl(context):
+    context.execute_steps(u'''
+        Then running "git log --oneline" prints out
+    ''')

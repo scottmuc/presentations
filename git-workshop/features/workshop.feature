@@ -54,7 +54,7 @@ Feature: Git Workshop Faciliator Script
 
   Scenario: Reset a branch
       Given a series of commits is made with messages: great, is, git, think, I
-        When resetting the branch main to HEAD^^
+        When resetting to HEAD^^
         Then branch main points to the commit with message think
         And HEAD still points to the branch main
 
