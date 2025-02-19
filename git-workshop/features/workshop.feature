@@ -41,7 +41,7 @@ Feature: Git Workshop Faciliator Script
 
   Scenario: Re-attach a commit to a branch from a detached HEAD state
     Given HEAD is in a detached state
-      When checking out the branch main
+      When the branch main is checked out
       Then HEAD points back to the branch main
 
 

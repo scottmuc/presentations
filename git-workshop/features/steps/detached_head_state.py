@@ -35,10 +35,10 @@ def step_impl(context):
     ''')
 
 
-@when(u'checking out the branch main')
-def step_impl(context):
+@when(u'the {branch_name} is checked out')
+def step_impl(context, branch_name):
     cmd = CommandRunner()
-    result = cmd.run(context.repo.dirpath, 'git', 'checkout', 'main')
+    result = cmd.run(context.repo.dirpath, 'git', 'checkout', branch_name)
     assert result.exitcode == 0
 
 
