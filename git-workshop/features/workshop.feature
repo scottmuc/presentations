@@ -59,26 +59,26 @@ Feature: Git Workshop Faciliator Script
         And HEAD still points to the branch main
 
 
-  # Scenario: Rebase a branch 
-  #   Given a series of commits is made with messages: great, is, git, think, I
-  #   When a branch banana is created
-  #   And the branch banana is checked out
-  #   And a reset to HEAD^ is done
-  #   And a series of commits is made with messages: do not
-  #   And running "git log --oneline" prints out
-  #   | sha          | message  |
-  #   | ^[0-9a-f]{7} | do not   |
-  #   | ^[0-9a-f]{7} | think    |
-  #   | ^[0-9a-f]{7} | git      |
-  #   | ^[0-9a-f]{7} | is       |
-  #   | ^[0-9a-f]{7} | great    |
-  #   And a rebase of "banana" onto "main" is completed
-  #   Then running "git log --oneline" prints out
-  #   | sha          | message  |
-  #   | ^[0-9a-f]{7} | I        |
-  #   | ^[0-9a-f]{7} | do not   |
-  #   | ^[0-9a-f]{7} | think    |
-  #   | ^[0-9a-f]{7} | git      |
-  #   | ^[0-9a-f]{7} | is       |
-  #   | ^[0-9a-f]{7} | great    |
-  #   And HEAD will still be on banana
+  Scenario: Rebase a branch 
+    Given a series of commits is made with messages: great, is, git, think, I
+    When a branch banana is created
+    And the branch banana is checked out
+    And resetting to HEAD^
+    And a series of commits is made with messages: do not
+    Then running "git log --oneline" prints out
+      | sha          | message  |
+      | ^[0-9a-f]{7} | do not   |
+      | ^[0-9a-f]{7} | think    |
+      | ^[0-9a-f]{7} | git      |
+      | ^[0-9a-f]{7} | is       |
+      | ^[0-9a-f]{7} | great    |
+    And a rebase of banana onto main is completed
+    # Then running "git log --oneline" prints out
+    #   | sha          | message  |
+    #   | ^[0-9a-f]{7} | I        |
+    #   | ^[0-9a-f]{7} | do not   |
+    #   | ^[0-9a-f]{7} | think    |
+    #   | ^[0-9a-f]{7} | git      |
+    #   | ^[0-9a-f]{7} | is       |
+    #   | ^[0-9a-f]{7} | great    |
+    # And HEAD still points to the branch banana
