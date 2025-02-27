@@ -2,8 +2,6 @@ name: Git Workshop CI
 on:
   workflow_dispatch:
   push:
-    branches:
-    - main
     paths:
     - 'git-workshop/**'
 
