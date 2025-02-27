@@ -1,0 +1,20 @@
+name: Git Workshop CI
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'git-workshop/**'
+
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Run the tests
+        working-directory: ./git-workshop
+        run: ./test.sh
