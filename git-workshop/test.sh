@@ -6,7 +6,7 @@ PYTHON_CMD=python3
 PIP_CMD=pip3
 
 main() {
-    print_env
+    if_github_actions && print_env
     check_python
     check_pip
     check_virtualenv
@@ -15,6 +15,10 @@ main() {
     install_dependencies
     style_check
     run_tests
+}
+
+if_github_actions() {
+    [[ -n "${GITHUB_REPOSITORY:-}" ]]
 }
 
 print_env() {
