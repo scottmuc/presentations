@@ -6,6 +6,7 @@ PYTHON_CMD=python3
 PIP_CMD=pip3
 
 main() {
+    print_env
     check_python
     check_pip
     check_virtualenv
@@ -14,6 +15,10 @@ main() {
     install_dependencies
     style_check
     run_tests
+}
+
+print_env() {
+    env
 }
 
 style_check() {
