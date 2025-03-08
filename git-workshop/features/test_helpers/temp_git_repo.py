@@ -15,7 +15,9 @@ class TempGitRepo:
         cmd = CommandRunner()
         cmd.run(self.dirpath, 'touch', message)
         cmd.run(self.dirpath, 'git', 'add', message)
-        cmd.run(self.dirpath, 'git', 'commit', '-m', message)
+        result = cmd.run(self.dirpath, 'git', 'commit', '-m', message)
+        debugmsg = f"Stdout: {result.output}\nStderr: {result.stderr}"
+        assert result.exitcode == 0, debugmsg
 
     def init_with_commits(self, messages):
         self.init()

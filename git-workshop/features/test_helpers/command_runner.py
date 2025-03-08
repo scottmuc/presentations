@@ -17,10 +17,11 @@ class CommandRunner:
         output = stdout.strip()
         exitcode = process.returncode
 
-        return CommandResult(output, exitcode)
+        return CommandResult(output, stderr, exitcode)
 
 
 class CommandResult:
-    def __init__(self, output, exitcode):
+    def __init__(self, output, stderr, exitcode):
         self.output = output
+        self.stderr = stderr
         self.exitcode = exitcode

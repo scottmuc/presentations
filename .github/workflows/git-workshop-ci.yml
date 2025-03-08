@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  publish:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
