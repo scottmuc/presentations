@@ -10,6 +10,8 @@ main() {
     check_python
     check_pip
     check_virtualenv
+
+    # If we've reached here, all machine dependecnies are met!
     setup_virtualenv
     activate_virtualenv
     install_dependencies
