@@ -28,4 +28,6 @@ jobs:
         env:
           GIT_AUTHOR_NAME: "GHA Workflow"
           GIT_AUTHOR_EMAIL: "gha@example.com"
+          GIT_COMMITTER_NAME: "GHA Workflow"
+          GIT_COMMITTER_EMAIL: "gha@example.com"
         run: ./test.sh
