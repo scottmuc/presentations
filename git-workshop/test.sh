@@ -32,7 +32,7 @@ style_check() {
 }
 
 run_tests() {
-    behave --no-source --no-timings --no-summary
+    behave --no-source --no-timings --no-summary --stop
 }
 
 install_dependencies() {

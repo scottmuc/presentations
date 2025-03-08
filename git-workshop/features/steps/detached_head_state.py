@@ -15,7 +15,7 @@ def step_impl(context):
     result = cmd.run(context.repo.dirpath, 'git', 'rev-parse', 'HEAD^^')
     context.sha = result.output
     context.repo.checkout_quiet(context.sha)
-    assert result.exitcode == 0, f"Expected {result['exitcode']} to be 0"
+    assert result.exitcode == 0, f"Expected {result.exitcode} to be 0"
 
 
 @then(u'git is in a detached HEAD state')

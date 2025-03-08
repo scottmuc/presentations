@@ -74,7 +74,8 @@ def step_impl(context):
 def step_impl(context):
     cmd = CommandRunner()
     result = cmd.run(context.repo.dirpath, 'cat', ".git/refs/heads/main")
-    assert result.output != ''
+    debugging = cmd.run(context.repo.dirpath, 'ls', "-laR")
+    assert result.output != '', debugging.output
 
 
 @then(u'the parent commit of HEAD does not exist')
