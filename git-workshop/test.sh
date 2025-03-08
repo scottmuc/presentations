@@ -24,7 +24,7 @@ if_github_actions() {
 }
 
 print_env() {
-    env
+    env | sort
 }
 
 style_check() {
