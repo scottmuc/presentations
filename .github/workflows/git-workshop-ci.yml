@@ -1,0 +1,33 @@
+name: Git Workshop CI
+on:
+  workflow_dispatch:
+  push:
+    paths:
+    - 'git-workshop/**'
+    - '.github/workflows/git-workshop-ci.yml'
+
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # We need a python, but we know there already exists a version from the
+      # the base image provided by GitHub:
+      # https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md
+      #
+      # We can also see pip and pip3 are installed. We only need to install virtualenv to
+      # satisfy all the requirements of the ./test.sh script
+      - name: Install virtualenv
+        run: pip3 install virtualenv
+
+      - name: Run the tests
+        working-directory: ./git-workshop
+        # https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
+        env:
+          GIT_AUTHOR_NAME: "GHA Workflow"
+          GIT_COMMITTER_NAME: "GHA Workflow"
+          EMAIL: "gha@example.com"
+        run: ./test.sh
