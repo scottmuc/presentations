@@ -1,10 +1,13 @@
 FROM ubuntu:latest
 LABEL org.opencontainers.image.authors="scott@scottmuc.com"
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install software-properties-common -y
 RUN add-apt-repository ppa:git-core/ppa
 
 RUN apt update && apt install -y \
+  ca-certificates \
   cowsay \
   curl \
   git \
