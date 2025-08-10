@@ -158,7 +158,7 @@ the message 'think'.
 
 The participants should see the subtle difference between a checkout and a
 reset. The commands are similar but they operate on different objects. They
-should also notice how the master branch is left unaffected.
+should also notice how `branch-1` is left unaffected.
 
 ### I Feel A Divergence In The Graph
 
