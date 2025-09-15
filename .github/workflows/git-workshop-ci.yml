@@ -41,7 +41,7 @@ jobs:
           - platform: amd64
             runner: ubuntu-latest
           - platform: arm64
-            runner: ubuntu-latest-arm
+            runner: macos-26
 
     steps:
       - name: Check out repository
