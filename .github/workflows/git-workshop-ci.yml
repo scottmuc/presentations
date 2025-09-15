@@ -33,22 +33,15 @@ jobs:
         run: ./test.sh
 
   publish:
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      matrix:
-        platform: [amd64, arm64]
-        include:
-          - platform: amd64
-            runner: ubuntu-latest
-          - platform: arm64
-            runner: macos-26
-
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
-        id: buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Auth with container registry
@@ -62,6 +55,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./git-workshop
-          platforms: linux/${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/scottmuc/handsongit:latest
