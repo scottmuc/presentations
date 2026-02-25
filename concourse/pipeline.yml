@@ -29,3 +29,5 @@ jobs:
           - ./test.sh
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+        GIT_AUTHOR_NAME: test
+        GIT_AUTHOR_EMAIL: test@example.com
