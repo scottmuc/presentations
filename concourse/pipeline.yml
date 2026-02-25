@@ -31,3 +31,5 @@ jobs:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
         GIT_AUTHOR_NAME: test
         GIT_AUTHOR_EMAIL: test@example.com
+        GIT_COMMITTER_NAME: test
+        GIT_COMMITTER_EMAIL: test@example.com
