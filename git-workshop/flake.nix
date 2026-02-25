@@ -50,6 +50,9 @@
 
               # Other packages
               ponysay
+              pkgs.python3
+              pkgs.python3Packages.pip
+              pkgs.python3Packages.virtualenv
             ];
 
             # Set any environment variables for your development environment
