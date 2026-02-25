@@ -6,7 +6,7 @@ resources:
     uri: https://github.com/scottmuc/presentations
 
 jobs:
-- name: static-analysis
+- name: git-workshop
   public: true
 
   plan:

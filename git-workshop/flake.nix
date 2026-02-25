@@ -48,8 +48,20 @@
               # Add the flake's formatter to your project's environment
               self.formatter.${system}
 
-              # Other packages
-              ponysay
+              pkgs.python3
+              pkgs.python3Packages.pip
+              pkgs.python3Packages.virtualenv
+            ];
+
+            # Set any environment variables for your development environment
+            env = { };
+
+            # Add any shell logic you want executed when the environment is activated
+            shellHook = "";
+          };
+          ci = pkgs.mkShellNoCC {
+            # The Nix packages provided in the environment
+            packages = with pkgs; [
               pkgs.python3
               pkgs.python3Packages.pip
               pkgs.python3Packages.virtualenv
