@@ -21,7 +21,7 @@ jobs:
         source:
           repository: docker.nix-community.org/nixpkgs/cachix-flakes
       inputs:
-      - name: infrastructure
+      - name: presentations
       run:
         path: ../bin/cachix-ci-nix-wrapper.sh
         dir: presentations/git-workshop
