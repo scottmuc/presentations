@@ -1,0 +1,31 @@
+resources:
+- name: presentations
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/scottmuc/presentations
+
+jobs:
+- name: static-analysis
+  public: true
+
+  plan:
+  - get: presentations
+    trigger: true
+
+  - task: running-git-workshop-tests
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: docker.nix-community.org/nixpkgs/cachix-flakes
+      inputs:
+      - name: infrastructure
+      run:
+        path: ../bin/cachix-ci-nix-wrapper.sh
+        dir: presentations/git-workshop
+        args:
+          - ./test.sh
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
