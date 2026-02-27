@@ -3,7 +3,7 @@
 set -e
 
 # shellcheck disable=SC2038
-find . -name "*.sh" -print \
+find . -path '*/venv' -prune -o -name "*.sh" -print \
   | xargs shellcheck
 
 cat << EOT

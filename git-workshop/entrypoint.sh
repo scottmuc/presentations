@@ -18,11 +18,11 @@ function renameUser() {
 }
 
 function getUserById() {
-    echo "$(getent passwd "${UID}" | awk -F: '{print $1}')"
+    getent passwd "${UID}" | awk -F: '{print $1}'
 }
 
 function getGroupById() {
-    echo "$(getent group "${GID}" | awk -F: '{print $1}')"
+    getent group "${GID}" | awk -F: '{print $1}'
 }
 
 # Execute as user set in dockerfile, when no other user was passed in docker run command.
