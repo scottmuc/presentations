@@ -40,6 +40,7 @@ install_dependencies() {
 }
 
 activate_virtualenv() {
+    # shellcheck disable=SC1091
     source venv/bin/activate
 }
 
