@@ -6,6 +6,36 @@ resources:
     uri: https://github.com/scottmuc/presentations
 
 jobs:
+- name: static-analysis
+  public: true
+
+  plan:
+  - get: presentations
+    trigger: true
+
+  - across:
+    - var: script
+      values:
+      - bin/nix-checks.sh
+      - bin/shell-checks.sh
+    task: running-((.:script))
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: docker.nix-community.org/nixpkgs/cachix-flakes
+      inputs:
+      - name: presentations
+      run:
+        path: bin/cachix-ci-nix-wrapper.sh
+        dir: infrastructure
+        args:
+          - "((.:script))"
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+
+
 - name: git-workshop
   public: true
 
