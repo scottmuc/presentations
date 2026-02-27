@@ -6,23 +6,23 @@ set -e
 USER=handsongit
 
 function createUser() {
-    useradd --system --create-home --gid=$GID --uid=$UID $USER
+    useradd --system --create-home --gid="${GID}" --uid="${UID}" "${USER}"
 }
 
 function createGroup() {
-    groupadd --system --gid=$GID $USER
+    groupadd --system --gid="${GID}" "${USER}"
 }
 
 function renameUser() {
-    usermod -l $USER -d /home/$USER $1
+    usermod -l "${USER}" -d "/home/${USER}" "$1"
 }
 
 function getUserById() {
-    echo $(getent passwd "$UID" | awk -F: '{print $1}')
+    echo "$(getent passwd "${UID}" | awk -F: '{print $1}')"
 }
 
 function getGroupById() {
-    echo $(getent group "$GID" | awk -F: '{print $1}')
+    echo "$(getent group "${GID}" | awk -F: '{print $1}')"
 }
 
 # Execute as user set in dockerfile, when no other user was passed in docker run command.
@@ -43,8 +43,8 @@ else
         existingUser=$(getUserById)
     fi
 
-    if [ $existingUser != $USER ]; then
-        renameUser $existingUser
+    if [ "${existingUser}" != $USER ]; then
+        renameUser "${existingUser}"
     fi
 
     exec sudo -E -u "$USER" "$@"
