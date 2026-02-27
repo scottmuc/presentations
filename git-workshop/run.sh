@@ -3,7 +3,7 @@
 set -e
 
 docker run -it --rm \
-  -v $PWD:/workspace \
+  -v "${PWD}:/workspace" \
   -w /workspace \
   -e UID="$(id -u)" \
   -e GID="$(id -g)" \
