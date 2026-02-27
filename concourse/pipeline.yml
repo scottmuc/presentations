@@ -29,7 +29,7 @@ jobs:
       - name: presentations
       run:
         path: bin/cachix-ci-nix-wrapper.sh
-        dir: infrastructure
+        dir: presentations
         args:
           - "((.:script))"
       params:
