@@ -6,8 +6,19 @@
 
   # Flake outputs
   outputs =
-    { self, ... }@inputs:
+    { self, nixpkgs, ... }@inputs:
     let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfreePredicate =
+            pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "vault"
+            ];
+        };
+      };
       # The systems supported for this flake's outputs
       supportedSystems = [
         "x86_64-linux" # 64-bit Intel/AMD Linux
@@ -44,7 +55,7 @@
           # Run `nix develop` to activate this environment or `direnv allow` if you have direnv installed
           default = pkgs.mkShellNoCC {
             # The Nix packages provided in the environment
-            packages = with pkgs; [
+            packages = [
               # Add the flake's formatter to your project's environment
               self.formatter.${system}
 
@@ -59,22 +70,28 @@
             # Add any shell logic you want executed when the environment is activated
             shellHook = "";
           };
-          ci = pkgs.mkShellNoCC {
-            # The Nix packages provided in the environment
-            packages = with pkgs; [
-              pkgs.python3
-              pkgs.python3Packages.pip
-              pkgs.python3Packages.virtualenv
-            ];
-
-            # Set any environment variables for your development environment
-            env = { };
-
-            # Add any shell logic you want executed when the environment is activated
-            shellHook = "";
-          };
         }
       );
+
+      packages = {
+        ci-image = pkgs.dockerTools.buildLayeredImage {
+          name = "infrastructure-ci";
+          tag = "latest";
+          contents = [
+            pkgs.dockerTools.caCertificates # installs CAs into expected /etc/ssl/certs
+            pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
+            pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
+            (pkgs.buildEnv {
+              name = "ci-env";
+              paths = [
+                pkgs.python3
+                pkgs.python3Packages.pip
+                pkgs.python3Packages.virtualenv
+              ];
+            })
+          ];
+        };
+      };
 
       # Nix formatter
 

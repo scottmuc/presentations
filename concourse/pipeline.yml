@@ -4,8 +4,86 @@ resources:
   icon: github
   source:
     uri: https://github.com/scottmuc/presentations
+    branch: main
+
+- name: bootstrapped-skopeo
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/skopeo
+    tag: latest
+
+
+- name: cachix-flakes
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/cachix-flakes
+    tag: latest
+
+
+- name: presentations-ci
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/presentations-ci
+    tag: latest
 
 jobs:
+- name: build-presentations-ci-image
+  public: true
+
+  plan:
+  - get: presentations
+  - get: bootstrapped-skopeo
+  - get: cachix-flakes
+
+  - task: build-presentations-ci-image
+    image: cachix-flakes
+    config:
+      platform: linux
+      inputs:
+      - name: presentations
+      outputs:
+      - name: result
+      run:
+        path: sh
+        args:
+          - -c
+          - |
+            cachix use scottmuc
+
+            cachix watch-exec scottmuc -- \
+              nix --extra-experimental-features "nix-command flakes" \
+              build ./presentations/git-workshop#ci-image -o result/image
+              # Create a local filesystem reference because /nix/store
+              # doesn't persist across steps.
+              cp result/image result/image.tar.gz
+              (cd result && gunzip image.tar.gz)
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+
+  - task: convert-and-push-presentations-ci
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+      - name: result
+      outputs:
+      - name: converted
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:result/image.tar
+          - oci:converted/oci
+
+  - put: presentations-ci
+    params:
+      image: converted/oci
+
+
 - name: static-analysis
   public: true
 
