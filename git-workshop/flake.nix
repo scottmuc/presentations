@@ -78,6 +78,7 @@
           name = "infrastructure-ci";
           tag = "latest";
           contents = [
+            pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
             (pkgs.buildEnv {
               name = "ci-env";
               paths = [
