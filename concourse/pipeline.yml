@@ -88,6 +88,9 @@ jobs:
   public: true
 
   plan:
+  - get: presentations-ci
+    passed: [build-presentations-ci-image]
+    trigger: true
   - get: presentations
     trigger: true
 
@@ -97,12 +100,9 @@ jobs:
       - bin/nix-checks.sh
       - bin/shell-checks.sh
     task: running-((.:script))
+    image: presentations-ci
     config:
       platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
       inputs:
       - name: presentations
       run:
@@ -110,24 +110,22 @@ jobs:
         dir: presentations
         args:
           - "((.:script))"
-      params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
 
 - name: git-workshop
   public: true
 
   plan:
+  - get: presentations-ci
+    passed: [build-presentations-ci-image]
+    trigger: true
   - get: presentations
     trigger: true
 
   - task: running-git-workshop-tests
+    image: presentations-ci
     config:
       platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
       inputs:
       - name: presentations
       run:
@@ -136,7 +134,6 @@ jobs:
         args:
           - ./test.sh
       params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
         GIT_AUTHOR_NAME: test
         GIT_AUTHOR_EMAIL: test@example.com
         GIT_COMMITTER_NAME: test
