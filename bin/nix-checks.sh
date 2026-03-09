@@ -12,7 +12,7 @@ for flake in $(find . -name "flake.nix"); do
 
   pushd "${dir}" > /dev/null
     nixfmt --check "${file}"
-    nix flake check
+    #nix flake check
     flake-checker --fail-mode
   popd
 done

@@ -106,10 +106,8 @@ jobs:
       inputs:
       - name: presentations
       run:
-        path: bin/cachix-ci-nix-wrapper.sh
+        path: "((.:script))"
         dir: presentations
-        args:
-          - "((.:script))"
 
 
 - name: git-workshop
@@ -129,10 +127,8 @@ jobs:
       inputs:
       - name: presentations
       run:
-        path: ../bin/cachix-ci-nix-wrapper.sh
+        path: ./test.sh
         dir: presentations/git-workshop
-        args:
-          - ./test.sh
       params:
         GIT_AUTHOR_NAME: test
         GIT_AUTHOR_EMAIL: test@example.com

@@ -82,10 +82,15 @@
               name = "ci-env";
               paths = [
                 pkgs.bashNonInteractive
+                pkgs.coreutils # provides ls, env, cat, etc...
+                pkgs.findutils # provides find and xargs
+                pkgs.flake-checker
                 pkgs.git
+                pkgs.nixfmt
                 pkgs.python3
                 pkgs.python3Packages.pip
                 pkgs.python3Packages.virtualenv
+                pkgs.shellcheck
               ];
             })
           ];
