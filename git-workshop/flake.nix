@@ -73,8 +73,8 @@
         }
       );
 
-      packages = {
-        ci-image.${system} = pkgs.dockerTools.buildLayeredImage {
+      packages.${system} = {
+        ci-image = pkgs.dockerTools.buildLayeredImage {
           name = "infrastructure-ci";
           tag = "latest";
           contents = [
