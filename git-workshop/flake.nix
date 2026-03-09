@@ -78,12 +78,11 @@
           name = "infrastructure-ci";
           tag = "latest";
           contents = [
-            pkgs.dockerTools.caCertificates # installs CAs into expected /etc/ssl/certs
-            pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
-            pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
             (pkgs.buildEnv {
               name = "ci-env";
               paths = [
+                pkgs.bashNonInteractive
+                pkgs.git
                 pkgs.python3
                 pkgs.python3Packages.pip
                 pkgs.python3Packages.virtualenv
