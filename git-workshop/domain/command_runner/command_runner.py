@@ -2,7 +2,7 @@ import subprocess
 
 
 class CommandRunner:
-    def run(self, dirpath, command, *args) -> str:
+    def run(self, dirpath, command, *args):
         process = subprocess.Popen(
             [command, *args],
             cwd=dirpath,
@@ -25,3 +25,7 @@ class CommandResult:
         self.output = output
         self.stderr = stderr
         self.exitcode = exitcode
+
+    @property
+    def succeeded(self):
+        return self.exitcode == 0
