@@ -19,9 +19,6 @@ class CommandRunner:
                 stderr=subprocess.PIPE,
                 text=True
         )
-
-        process.wait()
-
         stdout, stderr = process.communicate()
         output = stdout.strip()
         exitcode = process.returncode
@@ -78,7 +75,6 @@ class GitBackedBranchRepository(BranchRepository):
 
 
     def find_all(self) -> list[Branch]:
-        self.driver.list_branches()
         branches = []
         for branch_name in self.driver.list_branches():
             branches.append(Branch(name=branch_name))
@@ -90,8 +86,8 @@ def main() -> None:
     driver = GitDriver()
     driver.init()
     branch_repo = GitBackedBranchRepository(driver)
-    main = branch_repo.find_by_name("main")
-    print(main.name)
+    main_branch = branch_repo.find_by_name("main")
+    print(main_branch.name)
 
 
 
