@@ -1,21 +1,8 @@
-from infrastructure import GitDriver, TempGitDirectory
-from domain import GitBackedBranchRepository
+from domain import InMemoryBranchRepository, Branch
 
 def main() -> None:
-    # Setup
-
-    # Creates a git initalized temporary directory
-    temp_repo = TempGitDirectory()
-
-    # All the driver needs is a path to a git repository
-    driver = GitDriver(path=temp_repo.dirpath)
-
-    # Add a single commit to the initialized repository so
-    # that listing branchs works.
-    driver.create_commit("foo")
-
-    # Use the domain
-    branch_repo = GitBackedBranchRepository(driver)
+    branch_repo = InMemoryBranchRepository()
+    branch_repo.save(Branch(name="main"))
     main_branch = branch_repo.find_by_name("main")
     print(main_branch.name)
 

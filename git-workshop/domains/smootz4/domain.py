@@ -1,11 +1,8 @@
-from infrastructure import GitDriver
-
 class Branch:
     name: str
 
     def __init__(self, name: str) -> None:
         self.name = name
-
 
 
 class BranchRepository:
@@ -15,14 +12,14 @@ class BranchRepository:
     def find_all(self) -> list[Branch]:
         raise NotImplementedError
 
+    def save(self, branch: Branch) -> None:
+        raise NotImplementedError
 
-# This class glues infrastructure to the domain no consumers of this
-# class should call any methods that aren't in BranchRepository since
-# that's the actual Repository interface
-class GitBackedBranchRepository(BranchRepository):
 
-    def __init__(self, driver: GitDriver) -> None:
-        self.driver = driver
+class InMemoryBranchRepository(BranchRepository):
+
+    def __init__(self) -> None:
+        self.branches = []
 
     def find_by_name(self, name: str) -> Branch:
         for branch in self.find_all():
@@ -32,7 +29,8 @@ class GitBackedBranchRepository(BranchRepository):
 
 
     def find_all(self) -> list[Branch]:
-        branches = []
-        for branch_name in self.driver.list_branches():
-            branches.append(Branch(name=branch_name))
-        return branches
+        return self.branches
+
+
+    def save(self, branch: Branch) -> None:
+        self.branches.append(branch)
