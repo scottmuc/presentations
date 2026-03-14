@@ -11,23 +11,21 @@ def main() -> None:
         print(f"HEAD -> {branch.name}\n")
 
     # First commit exploration
-    main_branch.commit("great")
+    head.commit("great")
 
     # Remaind of the commits
-    main_branch.commit("is")
-    main_branch.commit("git")
+    head.commit("is")
+    head.commit("git")
 
-    for c in main_branch.log():
+    for c in head.log():
         print(c.message)
     print()
 
-    main_branch.commit("think")
-    main_branch.commit("I")
+    head.commit("think")
+    head.commit("I")
 
-    for c in main_branch.log():
+    for c in head.log():
         print(c.message)
-
-
 
 
 if __name__ == "__main__":
