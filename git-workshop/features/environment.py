@@ -1,8 +1,11 @@
 import importlib.util
 import pathlib
+import sys
 
 
 def before_all(context):
+    sys.path.insert(0, str(pathlib.Path("domains").resolve()))
+
     steps_dir = context.config.userdata.get("steps_dir",
                                             "features/steps/baseline_steps")
 

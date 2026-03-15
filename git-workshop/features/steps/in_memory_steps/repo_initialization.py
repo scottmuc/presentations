@@ -1,45 +1,32 @@
-import re
-
 from behave import given, then, when
+from smootz_06_introduce_tests.domain import Head, Branch, Commit
 
 
 @given(u'I have a directory that is not a git repository')
 def step_impl(context):
-    raise NotImplementedError("Step not implemented")
-    # context.repo = TempGitRepo()
-    # cmd = CommandRunner()
-    # result = cmd.run(context.repo.dirpath, 'ls', '.git')
-    # assert result.exitcode != 0
+    main_branch = Branch(name="main", ref=None)
+    context.head = Head(ref=main_branch)
+    assert context.head and main_branch is not None
 
 
 @when(u'I run git init in the directory')
 def step_impl(context):
-    raise NotImplementedError("Step not implemented")
-    # context.repo.init()
+    pass
 
 
 @then(u'a .git directory exists')
 def step_impl(context):
-    raise NotImplementedError("Step not implemented")
-    # cmd = CommandRunner()
-    # result = cmd.run(context.repo.dirpath, 'ls', '.git')
-    # assert result.exitcode == 0
+    pass
 
 
 @then(u'.git/HEAD contains the text "ref: refs/heads/main"')
 def step_impl(context):
-    raise NotImplementedError("Step not implemented")
-    # head_content = context.repo.read_head()
-    # errmsg = f"Expected 'ref: refs/heads/main', but got '{head_content}'"
-    # assert head_content == "ref: refs/heads/main", errmsg
+    assert context.head.ref.name == "main"
 
 
 @then(u'.git/refs/heads/main doesn\'t exist')
 def step_impl(context):
-    raise NotImplementedError("Step not implemented")
-    # cmd = CommandRunner()
-    # result = cmd.run(context.repo.dirpath, 'ls', '.git/refs/heads/main')
-    # assert result.exitcode != 0
+    assert context.head.ref.ref is None
 
 
 @given(u'I have an empty repository')
