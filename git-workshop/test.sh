@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu -o pipefail
+set -e -o pipefail
 
 PYTHON_CMD=python3
 PIP_CMD=pip3
@@ -34,8 +34,10 @@ style_check() {
 run_tests() {
     behave --no-source --no-timings --no-summary --stop
 
-    # behave --define steps_dir=features/steps/in_memory_steps \
-    #     --no-source --no-timings --no-summary --stop
+    if [[ -n "${TEST_WIP}" ]]; then
+        behave --define steps_dir=features/steps/in_memory_steps \
+            --no-source --no-timings --no-summary --stop
+    fi
 }
 
 install_dependencies() {
