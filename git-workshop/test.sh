@@ -33,6 +33,9 @@ style_check() {
 
 run_tests() {
     behave --no-source --no-timings --no-summary --stop
+
+    # behave --define steps_dir=features/steps/in_memory_steps \
+    #     --no-source --no-timings --no-summary --stop
 }
 
 install_dependencies() {
