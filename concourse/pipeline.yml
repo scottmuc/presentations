@@ -134,3 +134,30 @@ jobs:
         GIT_AUTHOR_EMAIL: test@example.com
         GIT_COMMITTER_NAME: test
         GIT_COMMITTER_EMAIL: test@example.com
+
+
+- name: git-workshop-domain
+  public: true
+
+  plan:
+  - get: presentations-ci
+    passed: [build-presentations-ci-image]
+    trigger: true
+  - get: presentations
+    trigger: true
+
+  - task: running-git-workshop-tests
+    image: presentations-ci
+    config:
+      platform: linux
+      inputs:
+      - name: presentations
+      run:
+        path: ./test.sh
+        dir: presentations/git-workshop
+      params:
+        GIT_AUTHOR_NAME: test
+        GIT_AUTHOR_EMAIL: test@example.com
+        GIT_COMMITTER_NAME: test
+        GIT_COMMITTER_EMAIL: test@example.com
+        TEST_WIP: true
