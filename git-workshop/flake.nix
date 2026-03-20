@@ -1,12 +1,31 @@
 {
   description = "An empty flake template that you can adapt to your own environment";
 
-  # Flake inputs
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0"; # Stable Nixpkgs (use 0.1 for unstable)
+  inputs = {
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+    uv2nix.url = "github:pyproject-nix/uv2nix";
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   # Flake outputs
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      uv2nix,
+      pyproject-nix,
+      pyproject-build-systems,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -19,6 +38,36 @@
             ];
         };
       };
+
+      workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./.; };
+      overlay = workspace.mkPyprojectOverlay { sourcePreference = "wheel"; };
+      python = nixpkgs.lib.head (
+        pyproject-nix.lib.util.filterPythonInterpreters {
+          inherit (workspace) requires-python;
+          inherit (pkgs) pythonInterpreters;
+        }
+      );
+      pythonBase = pkgs.callPackage pyproject-nix.build.packages {
+        inherit python;
+      };
+      pythonSet = pythonBase.overrideScope (
+        nixpkgs.lib.composeManyExtensions [
+          pyproject-build-systems.overlays.wheel
+          overlay
+        ]
+      );
+      virtualenv = pythonSet.mkVirtualEnv "git-workshop" workspace.deps.default;
+      editableOverlay = workspace.mkEditablePyprojectOverlay {
+        # Use environment variable pointing to editable root directory
+        root = "$REPO_ROOT";
+        # Optional: Only enable editable for these packages
+        # members = [ "hello-world" ];
+      };
+
+      editablePythonSet = pythonSet.overrideScope editableOverlay;
+
+      virtualenv2 = editablePythonSet.mkVirtualEnv "git-workshop" workspace.deps.all;
+
       # The systems supported for this flake's outputs
       supportedSystems = [
         "x86_64-linux" # 64-bit Intel/AMD Linux
@@ -59,12 +108,14 @@
               # Add the flake's formatter to your project's environment
               self.formatter.${system}
 
-              pkgs.python3
+              virtualenv2
               pkgs.uv
             ];
 
             # Set any environment variables for your development environment
-            env = { };
+            env = {
+              UV_PYTHON_DOWNLOADS = "never";
+            };
 
             # Add any shell logic you want executed when the environment is activated
             shellHook = "";
@@ -87,12 +138,16 @@
                 pkgs.flake-checker
                 pkgs.git
                 pkgs.nixfmt
-                pkgs.python3
                 pkgs.shellcheck
-                pkgs.uv
+                virtualenv
               ];
             })
           ];
+          config = {
+            Env = [
+              "UV_PYTHON_DOWNLOADS=never"
+            ];
+          };
         };
       };
 

@@ -9,3 +9,6 @@ dependencies = [
     "pycodestyle==2.12.1",
     "six==1.16.0",
 ]
+
+[tool.setuptools]
+packages = []

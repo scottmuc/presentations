@@ -15,39 +15,37 @@ main() {
 }
 
 uv_sync() {
-    uv sync
+    if ! command -v behave >/dev/null; then
+        echo "did not detect behave, so performing uv sync"
+        uv sync
+    fi
 }
 
 style_check() {
-    find features/ -name "*.py" -exec uv run pycodestyle --show-pep8 {} +
+    find features/ -name "*.py" -exec pycodestyle --show-pep8 {} +
 }
 
 run_tests() {
     if [[ -n "${TEST_WIP}" ]]; then
-        uv run behave --define steps_dir=features/steps/in_memory_steps \
+        behave --define steps_dir=features/steps/in_memory_steps \
             --no-source --no-timings --no-summary --stop
     else
-        uv run behave --no-source --no-timings --no-summary --stop
+        behave --no-source --no-timings --no-summary --stop
     fi
 }
 
 check_uv() {
-    if ! command -v uv >/dev/null; then
-        echo "uv not detected, please install uv first"
-        exit 1
+    if command -v uv >/dev/null; then
+        echo "uv location : $(command -v uv)"
+        echo "uv version  : $(uv --version)"
     fi
-    echo "uv location : $(command -v uv)"
-    echo "uv version  : $(uv --version)"
-
 }
 
 check_python() {
-    if ! command -v $PYTHON_CMD >/dev/null; then
-        echo "Python not detected, please install python first"
-        exit 1
+    if  command -v $PYTHON_CMD >/dev/null; then
+        echo "Python location : $(command -v $PYTHON_CMD)"
+        echo "Python version  : $($PYTHON_CMD --version)"
     fi
-    echo "Python location : $(command -v $PYTHON_CMD)"
-    echo "Python version  : $($PYTHON_CMD --version)"
 }
 
 main "$@"
