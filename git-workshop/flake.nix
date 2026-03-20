@@ -60,8 +60,7 @@
               self.formatter.${system}
 
               pkgs.python3
-              pkgs.python3Packages.pip
-              pkgs.python3Packages.virtualenv
+              pkgs.uv
             ];
 
             # Set any environment variables for your development environment
@@ -89,9 +88,8 @@
                 pkgs.git
                 pkgs.nixfmt
                 pkgs.python3
-                pkgs.python3Packages.pip
-                pkgs.python3Packages.virtualenv
                 pkgs.shellcheck
+                pkgs.uv
               ];
             })
           ];

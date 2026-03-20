@@ -3,74 +3,42 @@
 set -e -o pipefail
 
 PYTHON_CMD=python3
-PIP_CMD=pip3
 
 main() {
-    if_github_actions && print_env
     check_python
-    check_pip
-    check_virtualenv
+    check_uv
 
     # If we've reached here, all machine dependecnies are met!
-    setup_virtualenv
-    activate_virtualenv
-    install_dependencies
+    uv_sync
     style_check
     run_tests
 }
 
-if_github_actions() {
-    [[ -n "${GITHUB_REPOSITORY:-}" ]]
-}
-
-print_env() {
-    env | sort
+uv_sync() {
+    uv sync
 }
 
 style_check() {
-    find features/ -name "*.py" -exec pycodestyle --show-pep8 {} +
+    find features/ -name "*.py" -exec uv run pycodestyle --show-pep8 {} +
 }
 
 run_tests() {
     if [[ -n "${TEST_WIP}" ]]; then
-        behave --define steps_dir=features/steps/in_memory_steps \
+        uv run behave --define steps_dir=features/steps/in_memory_steps \
             --no-source --no-timings --no-summary --stop
     else
-        behave --no-source --no-timings --no-summary --stop
+        uv run behave --no-source --no-timings --no-summary --stop
     fi
 }
 
-install_dependencies() {
-    $PIP_CMD install -r ./requirements.txt
-}
-
-activate_virtualenv() {
-    # shellcheck disable=SC1091
-    source venv/bin/activate
-}
-
-setup_virtualenv() {
-    if [[ ! -d ./venv ]]; then
-        virtualenv venv
-    fi
-}
-
-check_virtualenv() {
-    if ! command -v virtualenv >/dev/null; then
-        echo "Virtualenv not detected, please install virtualenv via pip"
+check_uv() {
+    if ! command -v uv >/dev/null; then
+        echo "uv not detected, please install uv first"
         exit 1
     fi
-    echo "Virtualenv location : $(command -v virtualenv)"
-    echo "Virtualenv version  : $(virtualenv --version)"
-}
+    echo "uv location : $(command -v uv)"
+    echo "uv version  : $(uv --version)"
 
-check_pip() {
-    if ! command -v $PIP_CMD >/dev/null; then
-        echo "Pip not detected, please install pip in your python environment"
-        exit 1
-    fi
-    echo "Pip location : $(command -v $PIP_CMD)"
-    echo "Pip version  : $($PIP_CMD --version)"
 }
 
 check_python() {
